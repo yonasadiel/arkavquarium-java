@@ -8,39 +8,39 @@ public class Food implements Drawable {
     private Position position;
     /**
      * Construct Food at destined position
-     * @param {double} absis of food
-     * @param {double} ordinate of food
+     * @param x absis of food
+     * @param x ordinate of food
      */
     public Food(double x, double y){
-        this.position = new Position(x, y, false);
+        this.position = new Position(x, y);
     }
 
     /**
      * Move Food to bottom
-     * @param {int} minimum height
-     * @param {double} elapsed seconds
+     * @param y minimum height
+     * @param elapsedSeconds elapsed seconds
      */
     public void move(int y, double elapsedSeconds){
-        Position bottom = new Position(0, y, false);
+        Position bottom = new Position(0, y);
         this.position.moveVertical(bottom, elapsedSeconds * MAX_VELOCITY);
     }
 
     /**
-    * @return {Position} Food Position 
+    * @return food position 
     **/
     Position getPosition(){
         return this.position;
     }
 
     /**
-     * @return {std::string} asset path
+     * @return asset path
      */
     String getAssetPath(){
         return assetPath;
     }
 
     /**
-     * @return {int} food price
+     * @return food price
      */
     final int getPrice(){
         return PRICE;

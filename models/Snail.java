@@ -9,17 +9,17 @@ public class Snail implements Drawable {
 
     /**
     * Construct Snail with random position
-    * @param {int} screen width
-    * @param {int} screen height
     */
-    public Snail(int maxWidth, int maxHeight){
-        this.position = new Position(maxWidth, maxHeight, true);
+    public Snail(){
+        int maxWidth = Data.getMaxWidth();
+        int maxHeight = Data.getMaxHeight();
+        this.position = new Position();
         this.position.setOrdinate(maxHeight-(maxHeight/10));
         this.orientation = left;
     }
 
     /**
-     * Returns the snail position
+     * @return the snail position
      */
     public Position getPosition(){
         return this.position;
@@ -27,7 +27,8 @@ public class Snail implements Drawable {
 
     /**
      * Move position to dest not exceeding MAX_VELOCITY
-     * @param {Position} destination
+     * @param position destination
+     * @param elapsedSeconds elapsed seconds
      */
     public void moveToDestination(Position position, double elapsedSeconds){
         this.position.moveHorizontal(position, elapsedSeconds * MAX_VELOCITY);
@@ -39,7 +40,7 @@ public class Snail implements Drawable {
     }
 
     /**
-     * @return {std::string} asset path
+     * @return asset path
      */
     public String getAssetPath(){
         String path = assetPath;
