@@ -139,7 +139,7 @@ class Data {
 	 * Set new maxWidth
 	 * @param maxWidth new maxWidth
 	 */
-	public static void setMaxHeight(int maxWidth) {
+	public static void setMaxWidth(int maxWidth) {
 		Data.maxWidth = maxWidth;
 	}
 }
