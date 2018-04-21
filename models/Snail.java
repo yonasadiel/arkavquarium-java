@@ -1,11 +1,11 @@
 public class Snail implements Drawable {
     private static final String assetPath = "assets/img/snail";
     private final int MAX_VELOCITY = 40;
-    
     enum TOrientation {
         left, right;
-    };
+    }
     private TOrientation orientation;
+    private Position position;
 
     /**
     * Construct Snail with random position

@@ -5,7 +5,7 @@ public class Food implements Drawable {
     * Max velocity of the food movement
     */
     private static int MAX_VELOCITY = 30;
-
+    private Position position;
     /**
      * Construct Food at destined position
      * @param {double} absis of food
