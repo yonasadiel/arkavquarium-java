@@ -1,4 +1,4 @@
-enum tGrowthStep { stepOne, stepTwo, stepThree ; }
+enum GrowthStep { STEPONE, STEPTWO, STEPTHREE ; }
 
 
 
@@ -19,7 +19,7 @@ public class Guppy extends Fish {
      * Updated every update method is called
      */
     private double produceCoinTimer;
-    private tGrowthStep growthStep;
+    private GrowthStep growthStep;
         /**
          * Construct Guppy
          * Set produceCoinTimer to 0
@@ -27,7 +27,7 @@ public class Guppy extends Fish {
     public Guppy(int maxWidth, int maxHeight){
         super();
         this.produceCoinTimer = 0;
-        this.growthStep = tGrowthStep.stepOne;
+        this.growthStep = GrowthStep.STEPONE;
         this.maxVelocity = MAX_VELOCITY;
     }
         
@@ -42,15 +42,15 @@ public class Guppy extends Fish {
          * @return {int} this growthStep in int
          */
     public int getGrowthStepInt(){
-        if ( this.growthStep == tGrowthStep.stepOne) { return 1; }
-        else if ( this.growthStep == tGrowthStep.stepTwo ) { return 2;}
+        if ( this.growthStep == GrowthStep.STEPONE) { return 1; }
+        else if ( this.growthStep == GrowthStep.STEPTWO ) { return 2;}
         else { return 3;}
     }
         
         /**
-         * @param {tGrowthStep} new growthStep
+         * @param {GrowthStep} new growthStep
          */
-    public void setGrowthStep(tGrowthStep growthStep){
+    public void setGrowthStep(GrowthStep growthStep){
         this.growthStep = growthStep;
     }
         
@@ -64,8 +64,8 @@ public class Guppy extends Fish {
             return 0;
         } else {
             this.produceCoinTimer -= PRODUCE_COIN_PERIOD;
-            if (this.getGrowthStep() == tGrowthStep.stepOne) { return COIN_VALUE_STEP_ONE; }
-            else if (this.getGrowthStep() == tGrowthStep.stepTwo) { return COIN_VALUE_STEP_TWO; }
+            if (this.getGrowthStep() == GrowthStep.STEPONE) { return COIN_VALUE_STEP_ONE; }
+            else if (this.getGrowthStep() == GrowthStep.STEPTWO) { return COIN_VALUE_STEP_TWO; }
             else { return COIN_VALUE_STEP_THREE; }
         }
     }
@@ -85,9 +85,9 @@ public class Guppy extends Fish {
     public void eat(){
         super.eat();
         if (this.eatCounter == FIRST_GROWTH_EAT_COUNTER)
-            this.growthStep = tGrowthStep.stepTwo;
+            this.growthStep = GrowthStep.STEPTWO;
         else if(this.eatCounter == SECOND_GROWTH_EAT_COUNTER)
-            this.growthStep = tGrowthStep.stepThree;
+            this.growthStep = GrowthStep.STEPTHREE;
     }
 
         /**
@@ -96,11 +96,11 @@ public class Guppy extends Fish {
     public String getAssetPath(){
         String path = assetPath;
 
-        if (this.getOrientation() == tOrientation.left) { path += "_left"; }
+        if (this.getOrientation() == Orientation.LEFT) { path += "_left"; }
         else { path += "_right"; }
 
-        if (this.getGrowthStep() == tGrowthStep.stepOne) { path += "_small"; }
-        else if (this.getGrowthStep() == tGrowthStep.stepTwo) { path += "_medium"; }
+        if (this.getGrowthStep() == GrowthStep.STEPONE) { path += "_small"; }
+        else if (this.getGrowthStep() == GrowthStep.STEPTWO) { path += "_medium"; }
         else { path += "_big"; }
 
         if (this.isStarving()) { path += "_hungry"; }

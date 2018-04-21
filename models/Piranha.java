@@ -45,7 +45,7 @@ public class Piranha extends Fish {
     public String getAssetPath(){
     String path = assetPath;
 
-    if (this.getOrientation() == tOrientation.left) { path += "_left_big"; }
+    if (this.getOrientation() == Orientation.LEFT) { path += "_left_big"; }
     else { path += "_right_big"; }
 
     if (this.isStarving()) { path += "_hungry"; }

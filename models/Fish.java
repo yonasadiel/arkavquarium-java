@@ -1,10 +1,10 @@
 
-enum tStatus {
-    starving, idle;
+enum Status {
+    STARVING, IDLE;
 }
 
-enum tOrientation {
-    left, right ;
+enum Orientation {
+    LEFT, RIGHT ;
 }
 
 
@@ -23,14 +23,14 @@ public abstract class Fish implements Drawable {
     protected static final int FIRST_GROWTH_EAT_COUNTER = 7;
     protected static final int SECOND_GROWTH_EAT_COUNTER = 15;
     
-    protected tStatus status;
+    protected Status status;
     protected double maxVelocity;
     protected Position position;
     /**
      * Destination of Fish when Fish is idle
      */
     protected Position destination;
-    protected tOrientation orientation;
+    protected Orientation orientation;
     protected double starvingTimer;
     protected int eatCounter;
 
@@ -45,20 +45,20 @@ public abstract class Fish implements Drawable {
     * Set eatCounter to zero
     */
     public Fish(){
-        this.status = tStatus.idle;
+        this.status = Status.idle;
         this.position = new Position();
         this.destination = new Position();
         this.starvingTimer = 0;
         this.orientation =
             (this.destination.getAbsis() > this.position.getAbsis()) ?
-               tOrientation.right : tOrientation.left;
+               Orientation.RIGHT : Orientation.LEFT;
         this.eatCounter = 0;
     }
 
     /**
      * Getter  
      */
-    public final tStatus getStatus() {
+    public final Status getStatus() {
         return this.status;
     }
 
@@ -73,7 +73,7 @@ public abstract class Fish implements Drawable {
         return this.starvingTimer;
     }
 
-    public final tOrientation getOrientation(){
+    public final Orientation getOrientation(){
     return this.orientation;
     }
 
@@ -84,7 +84,7 @@ public abstract class Fish implements Drawable {
     /**
      * Setter
      */
-    public void setStatus(tStatus status){
+    public void setStatus(Status status){
         this.status = status;
     }
 
@@ -100,7 +100,7 @@ public abstract class Fish implements Drawable {
         this.starvingTimer = starvingTimer;
     }
 
-    public void setOrientation(tOrientation orientation){
+    public void setOrientation(Orientation orientation){
         this.orientation = orientation ;
     }
 
@@ -138,9 +138,9 @@ public abstract class Fish implements Drawable {
     public void moveToDestination(Position position, double elapsedSeconds){
         this.position.move(position, elapsedSeconds * this.maxVelocity); 
         if (this.position.getAbsis() < position.getAbsis()) {
-            this.orientation = tOrientation.right;
+            this.orientation = Orientation.RIGHT;
         } else {
-            this.orientation = tOrientation.left;
+            this.orientation = Orientation.LEFT;
         }
     }
 
@@ -155,9 +155,9 @@ public abstract class Fish implements Drawable {
         }
         this.position.move(this.destination, elapsedSeconds * this.maxVelocity);
         if (this.position.getAbsis() < this.destination.getAbsis()) {
-            this.orientation = tOrientation.right;
+            this.orientation = Orientation.RIGHT;
         } else {
-            this.orientation = tOrientation.left;
+            this.orientation = Orientation.LEFT;
         }
     }
 }
