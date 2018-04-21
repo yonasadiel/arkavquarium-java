@@ -1,5 +1,3 @@
-enum GrowthStep { STEP_ONE, STEP_TWO, STEP_THREE }
-
 public class Guppy extends Fish {    
     private final static int MAX_VELOCITY = 40;
     /**

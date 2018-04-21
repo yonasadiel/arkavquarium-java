@@ -28,21 +28,21 @@ public class Food implements Drawable {
     /**
     * @return food position 
     **/
-    Position getPosition(){
+    public Position getPosition(){
         return this.position;
     }
 
     /**
      * @return asset path
      */
-    String getAssetPath(){
+    public String getAssetPath(){
         return assetPath;
     }
 
     /**
      * @return food price
      */
-    final int getPrice(){
+    public final int getPrice(){
         return PRICE;
     }
 }

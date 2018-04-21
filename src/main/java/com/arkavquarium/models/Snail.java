@@ -1,10 +1,7 @@
 public class Snail implements Drawable {
     private static final String assetPath = "assets/img/snail";
     private final int MAX_VELOCITY = 40;
-    enum TOrientation {
-        left, right;
-    }
-    private TOrientation orientation;
+    private Orientation orientation;
     private Position position;
 
     /**
@@ -15,7 +12,7 @@ public class Snail implements Drawable {
         int maxHeight = Data.getMaxHeight();
         this.position = new Position();
         this.position.setOrdinate(maxHeight-(maxHeight/10));
-        this.orientation = left;
+        this.orientation = Orientation.LEFT;
     }
 
     /**
@@ -33,9 +30,9 @@ public class Snail implements Drawable {
     public void moveToDestination(Position position, double elapsedSeconds){
         this.position.moveHorizontal(position, elapsedSeconds * MAX_VELOCITY);
         if (this.position.getAbsis() < position.getAbsis()) {
-            this.orientation = right;
+            this.orientation = Orientation.RIGHT;
         } else {
-            this.orientation = left;
+            this.orientation = Orientation.LEFT;
         }
     }
 
@@ -45,7 +42,7 @@ public class Snail implements Drawable {
     public String getAssetPath(){
         String path = assetPath;
 
-        if (this.orientation == left) { path += "_left"; }
+        if (this.orientation == Orientation.LEFT) { path += "_left"; }
         else { path += "_right"; }
 
         path += ".png";
