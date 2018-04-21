@@ -1,6 +1,3 @@
-enum Status { STARVING, IDLE }
-enum Orientation { LEFT, RIGHT }
-
 public abstract class Fish implements Drawable {
     protected static final int MAX_VELOCITY = 35;
     /**
