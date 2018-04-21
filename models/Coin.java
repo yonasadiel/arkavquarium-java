@@ -20,7 +20,7 @@ class Coin implements Drawable{
 	 * @param elapsedSeconds elapsed Seconds
 	 */
 	public void move(double elapsedSeconds) {
-		Position bottom = new Position(0, Data.maxHeight-(Data.maxHeight/10));
+		Position bottom = new Position(0, Data.getMaxHeight()-(Data.getMaxHeight()/10));
 		this.getPosition().moveVertical(bottom, elapsedSeconds);
 	}
 
@@ -28,21 +28,21 @@ class Coin implements Drawable{
 	 * @return the coin's position
 	 */
 	public Position getPosition() {
-		return this.Position;
+		return this.position;
 	}
 	
 	/**
 	 * @return the coin's value
 	 */
 	public int getValue() {
-		return this.Value;
+		return this.value;
 	}
 
 	/**
 	 * @return the coin's asset path 
 	 */
 	public String getAssetPath() {
-		if (this.getValue < 50)
+		if (this.getValue() < 50)
 			return this.assetPathCoin;
 		else
 			return this.assetPathRuby;

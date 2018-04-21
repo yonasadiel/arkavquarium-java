@@ -29,14 +29,14 @@ class Position {
 	}
 
 	/**
-	 * @return Return the absis of the positon
+	 * @return the absis of the positon
 	 */
 	public double getAbsis() {
 		return this.x;
 	}
 	
 	/**
-	 * @return Return the ordinate of the position
+	 * @return the ordinate of the position
 	 */
 	public double getOrdinate() {
 		return this.y;
@@ -62,9 +62,9 @@ class Position {
 	 * Set the position to random value with within maximal height and maximal width
 	 */
 	public void random() {
-		int pad = Data.maxWidth * 5 / 100;
-		this.x = Math.random() * (Data.maxWidth-2*pad) + pad;
-		this.x = Math.random() * Data.maxHeight;
+		int pad = Data.getMaxWidth() * 5 / 100;
+		this.x = Math.random() * (Data.getMaxWidth()-2*pad) + pad;
+		this.x = Math.random() * Data.getMaxHeight();
 	}
 
 	/**
@@ -94,11 +94,10 @@ class Position {
 	public void moveHorizontal(Position dest, double maxVelocity) {	
     	double dx;
     	dx = dest.getAbsis() - this.x;
-    	if (dx < 0) {
+    	if (dx < 0)
         	this.x += Math.max(-maxVelocity, dx);
-    	} else {
+    	else
         	this.x += Math.min(maxVelocity, dx);
-    	}
 	}
 
 	/**
@@ -109,11 +108,10 @@ class Position {
 	public void moveVertical(Position dest, double maxVelocity) {
     	double dy;
     	dy = dest.getOrdinate() - this.y;
-    	if (dy < 0) {
+    	if (dy < 0)
         	this.y += Math.max(-maxVelocity, dy);
-    	} else {
+    	else
         	this.y += Math.min(maxVelocity, dy);
-    	}
 	}
 	
 	/**
@@ -121,14 +119,13 @@ class Position {
 	 * @param comp the position to compare with
 	 * @return true if both positions have same coordinate
 	 */
-	public boolean isEqual(Position comp) {
-		return ((this.x == comp.x) && (this.y == comp.y));
+	public boolean equals(Position other) {
+		return ((this.x == other.x) && (this.y == other.y));
 	}
 
 	/**
 	 * Return the magnitude between to position comp
 	 * @param comp the end position
-	 * @return the magnitude to comp
 	 */
 	public double magnitude(Position comp) {
 		double lenV;
