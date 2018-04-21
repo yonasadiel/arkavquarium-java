@@ -1,28 +1,18 @@
-
-enum Status {
-    STARVING, IDLE;
-}
-
-enum Orientation {
-    LEFT, RIGHT ;
-}
-
+enum Status { STARVING, IDLE }
+enum Orientation { LEFT, RIGHT }
 
 public abstract class Fish implements Drawable {
     protected static final int MAX_VELOCITY = 35;
     /**
      * Time from Fish eat until starving
-     * @todo set constant
      */
     protected static final int REPLETE_TIME = 12;
     /**
      * Time from Fish starving until die
-     * @todo set constant
      */
     protected static final int STARVATION_TIME = 24;
     protected static final int FIRST_GROWTH_EAT_COUNTER = 7;
     protected static final int SECOND_GROWTH_EAT_COUNTER = 15;
-    
     protected Status status;
     protected double maxVelocity;
     protected Position position;
@@ -36,16 +26,16 @@ public abstract class Fish implements Drawable {
 
     /**
     * Construct Fish
-    * Set status to STATUS_IDLE
+    * Set status to IDLE
     * Set position to random new position
     * Set destination to random new position
-    * Set growthStep to GROWTH_STEP_ONE
+    * Set growthStep to STEP_ONE
     * Set starvingTimer to zero
     * Set orientation according to destination
     * Set eatCounter to zero
     */
     public Fish(){
-        this.status = Status.idle;
+        this.status = Status.IDLE;
         this.position = new Position();
         this.destination = new Position();
         this.starvingTimer = 0;
@@ -56,67 +46,94 @@ public abstract class Fish implements Drawable {
     }
 
     /**
-     * Getter  
+     * @return fish status
      */
     public final Status getStatus() {
         return this.status;
     }
 
+    /**
+     * @return fish position
+     */
     public final Position getPosition() {
         return this.position;
     }
+
+    /**
+     * @return fish status
+     */
     public final Position getDestination() {
         return this.destination;
     }
 
+    /**
+     * @return fish starving timer
+     */
     public final double getStarvingTimer() {
         return this.starvingTimer;
     }
 
+    /**
+     * @return fish orientation
+     */
     public final Orientation getOrientation(){
-    return this.orientation;
+        return this.orientation;
     }
 
+    /**
+     * @return fish eat counter
+     */
     public final int getEatCounter(){
         return this.eatCounter;
     }
 
     /**
-     * Setter
+     * @param status new status
      */
     public void setStatus(Status status){
         this.status = status;
     }
 
+    /**
+     * @param position new position
+     */
     public void setPosition(Position position){
         this.position = position;
     }
 
-    public void setDestination(Position position){
+    /**
+     * @param destination new destination
+     */
+    public void setDestination(Position destination){
         this.destination = destination;
     }
 
+    /**
+     * @param starvingTimer new starving timer
+     */
     public void setStarvingTimer(double starvingTimer){
         this.starvingTimer = starvingTimer;
     }
 
+    /**
+     * @param orientation new orientation
+     */
     public void setOrientation(Orientation orientation){
         this.orientation = orientation ;
     }
 
-
     public abstract int isProduceCoin();
 
     /**
-     * @return {bool} REPLETE TIME <= starvingTimer <= STARVING TIME 
+     * @return REPLETE TIME <= starvingTimer <= STARVING TIME 
      */
     public boolean isStarving(){
         return (REPLETE_TIME <= this.starvingTimer) && (this.starvingTimer <= STARVATION_TIME);
     }
 
     /**
-         * @return {bool} starvingTimer > STARVING TIME
-         */
+     * @return starvingTimer > STARVING TIME
+     */
     public boolean isDie(){
         return this.getStarvingTimer() > STARVATION_TIME;
     }
@@ -132,8 +149,9 @@ public abstract class Fish implements Drawable {
 
     /**
      * Move Fish to the dest
-     * @param {Position} is the nearest Food for Guppy
-     *   or nearest Guppy for Piranha
+     * @param position is the nearest Food for Guppy
+     *                 or nearest Guppy for Piranha
+     * @param elapsedSeconds elapsedSecond for max velocity calc
      */
     public void moveToDestination(Position position, double elapsedSeconds){
         this.position.move(position, elapsedSeconds * this.maxVelocity); 
@@ -148,8 +166,9 @@ public abstract class Fish implements Drawable {
      * Move Fish to their default destination
      * If Fish Position equal to default destination
      * random new destination 
+     * @param elapsedSeconds elapsed seconds since last invocation
      */
-    public void moveToDestination(int maxWidth, int maxHeight, double elapsedSeconds){
+    public void moveToDestination(double elapsedSeconds){
         if (this.position.equals(this.destination)){
             this.destination = new Position();
         }

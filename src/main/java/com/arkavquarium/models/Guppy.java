@@ -1,9 +1,6 @@
-enum GrowthStep { STEPONE, STEPTWO, STEPTHREE ; }
+enum GrowthStep { STEP_ONE, STEP_TWO, STEP_THREE }
 
-
-
-public class Guppy extends Fish {
-    
+public class Guppy extends Fish {    
     private final static int MAX_VELOCITY = 40;
     /**
      * Period time for Guppy producing coin
@@ -20,87 +17,88 @@ public class Guppy extends Fish {
      */
     private double produceCoinTimer;
     private GrowthStep growthStep;
-        /**
-         * Construct Guppy
-         * Set produceCoinTimer to 0
-         */
+
+    /**
+     * Construct Guppy
+     * Set produceCoinTimer to 0
+     */
     public Guppy(int maxWidth, int maxHeight){
         super();
         this.produceCoinTimer = 0;
-        this.growthStep = GrowthStep.STEPONE;
+        this.growthStep = GrowthStep.STEP_ONE;
         this.maxVelocity = MAX_VELOCITY;
     }
         
-        /**
-         * @return {tGrowthStep} this growthStep
-         */
-    public tGrowthStep getGrowthStep(){
+    /**
+     * @return growthStep
+     */
+    public GrowthStep getGrowthStep(){
         return this.growthStep;
     }
         
-        /**
-         * @return {int} this growthStep in int
-         */
+    /**
+     * @return growthStep in int
+     */
     public int getGrowthStepInt(){
-        if ( this.growthStep == GrowthStep.STEPONE) { return 1; }
-        else if ( this.growthStep == GrowthStep.STEPTWO ) { return 2;}
+        if ( this.growthStep == GrowthStep.STEP_ONE) { return 1; }
+        else if ( this.growthStep == GrowthStep.STEP_TWO ) { return 2;}
         else { return 3;}
     }
         
-        /**
-         * @param {GrowthStep} new growthStep
-         */
+    /**
+     * @param growthStep new growthStep
+     */
     public void setGrowthStep(GrowthStep growthStep){
         this.growthStep = growthStep;
     }
         
-        /**
-         * Reduce produceCoinTimer with PRODUCE_COIN_PERIOD
-         * @return {int} 0 if PRODUCE_COIN_PERIOD == produceCoinTimer before edited
-         *               this growthStep value if not
-         */
+    /**
+     * Reduce produceCoinTimer with PRODUCE_COIN_PERIOD
+     * @return 0 if PRODUCE_COIN_PERIOD == produceCoinTimer before edited
+     *         this growthStep value if not
+     */
     public int isProduceCoin(){
         if (this.produceCoinTimer < PRODUCE_COIN_PERIOD) {
             return 0;
         } else {
             this.produceCoinTimer -= PRODUCE_COIN_PERIOD;
-            if (this.getGrowthStep() == GrowthStep.STEPONE) { return COIN_VALUE_STEP_ONE; }
-            else if (this.getGrowthStep() == GrowthStep.STEPTWO) { return COIN_VALUE_STEP_TWO; }
+            if (this.getGrowthStep() == GrowthStep.STEP_ONE) { return COIN_VALUE_STEP_ONE; }
+            else if (this.getGrowthStep() == GrowthStep.STEP_TWO) { return COIN_VALUE_STEP_TWO; }
             else { return COIN_VALUE_STEP_THREE; }
         }
     }
         
-        /**
-         * Increment produceCoinTimer by elapsedSeconds
-         * @param {double} elapsed seconds since previous loop
-         */
+    /**
+     * Increment produceCoinTimer by elapsedSeconds
+     * @param elapsedSeconds elapsed seconds since previous loop
+     */
     public void update(double elapsedSeconds){
         this.produceCoinTimer += elapsedSeconds;
     }
 
-        /**
-         * Override parent eat(). After parent eat(),
-         * if exceed minimum eatCounter, upgrade growthStep to next step
-         */
+    /**
+     * Override parent eat(). After parent eat(),
+     * if exceed minimum eatCounter, upgrade growthStep to next step
+     */
     public void eat(){
         super.eat();
         if (this.eatCounter == FIRST_GROWTH_EAT_COUNTER)
-            this.growthStep = GrowthStep.STEPTWO;
+            this.growthStep = GrowthStep.STEP_TWO;
         else if(this.eatCounter == SECOND_GROWTH_EAT_COUNTER)
-            this.growthStep = GrowthStep.STEPTHREE;
+            this.growthStep = GrowthStep.STEP_THREE;
     }
 
-        /**
-         * @return {std::string} asset path
-         */
+    /**
+     * @return asset path, depends on this orientation, growth step, and status
+     */
     public String getAssetPath(){
         String path = assetPath;
 
         if (this.getOrientation() == Orientation.LEFT) { path += "_left"; }
         else { path += "_right"; }
 
-        if (this.getGrowthStep() == GrowthStep.STEPONE) { path += "_small"; }
-        else if (this.getGrowthStep() == GrowthStep.STEPTWO) { path += "_medium"; }
+        if (this.getGrowthStep() == GrowthStep.STEP_ONE) { path += "_small"; }
+        else if (this.getGrowthStep() == GrowthStep.STEP_TWO) { path += "_medium"; }
         else { path += "_big"; }
 
         if (this.isStarving()) { path += "_hungry"; }
@@ -109,9 +107,9 @@ public class Guppy extends Fish {
         return path;
     }
 
-        /**
-         * @return {int} guppy price
-         */
+    /**
+     * @return guppy price
+     */
     public static Integer getPrice(){
         return PRICE;
     }
