@@ -3,6 +3,8 @@ import org.junit.Before;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertFalse;
+import com.arkavquarium.models.Position;
+import com.arkavquarium.models.Data;
 
 public class PositionTest {
     private double tolerance = 0.001;
