@@ -10,7 +10,7 @@ public class Guppy extends Fish {
     private final static int COIN_VALUE_STEP_TWO = 20;
     private final static int COIN_VALUE_STEP_THREE = 40;
     private final static int PRICE = 100;
-    private final static String assetPath = "assets/img/guppy";
+    private final static String assetPath = "src/main/resources/img/guppy";
     /**
      * Timer for producing coin
      * Updated every update method is called

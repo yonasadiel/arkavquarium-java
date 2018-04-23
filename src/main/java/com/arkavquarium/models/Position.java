@@ -66,7 +66,7 @@ public class Position {
 	public void random() {
 		int pad = Data.getMaxWidth() * 5 / 100;
 		this.x = Math.random() * (Data.getMaxWidth()-2*pad) + pad;
-		this.x = Math.random() * Data.getMaxHeight();
+		this.y = Math.random() * Data.getMaxHeight();
 	}
 
 	/**
@@ -122,7 +122,9 @@ public class Position {
 	 * @return true if both positions have same coordinate
 	 */
 	public boolean equals(Position other) {
-		return ((this.x == other.x) && (this.y == other.y));
+		double deltaX = Math.abs(this.x - other.x);
+		double deltaY = Math.abs(this.y - other.y);
+		return ( deltaX <= 0.0001 && deltaY <= 0.0001 );
 	}
 
 	/**
