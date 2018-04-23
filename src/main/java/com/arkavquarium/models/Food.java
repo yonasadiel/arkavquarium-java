@@ -10,11 +10,10 @@ public class Food implements Drawable {
     private Position position;
     /**
      * Construct Food at destined position
-     * @param x absis of food
-     * @param x ordinate of food
+     * @param position position of food
      */
-    public Food(double x, double y){
-        this.position = new Position(x, y);
+    public Food(Position position){
+        this.position = new Position(position.getAbsis(), position.getOrdinate());
     }
 
     /**

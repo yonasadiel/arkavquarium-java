@@ -19,7 +19,7 @@ export PATH=${M2_HOME}/bin:${PATH}
 
 ```
 sudo chmod +x /etc/profile.d/mavenenv.sh
-sudo source /etc/profile.d/mavenenv.sh
+source /etc/profile.d/mavenenv.sh
 
 # verify your installation
 mvn --version

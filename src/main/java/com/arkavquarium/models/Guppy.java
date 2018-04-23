@@ -22,7 +22,7 @@ public class Guppy extends Fish {
      * Construct Guppy
      * Set produceCoinTimer to 0
      */
-    public Guppy(int maxWidth, int maxHeight){
+    public Guppy(){
         super();
         this.produceCoinTimer = 0;
         this.growthStep = GrowthStep.STEP_ONE;
