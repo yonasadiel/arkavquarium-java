@@ -1,4 +1,6 @@
-class Data {
+package com.arkavquarium.models;
+
+public class Data {
 	private static LinkedList<Guppy> guppies = new LinkedList<Guppy>();
 	private static LinkedList<Piranha> piranhas = new LinkedList<Piranha>();
 	private static LinkedList<Food> foods = new LinkedList<Food>();

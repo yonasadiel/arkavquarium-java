@@ -1,3 +1,5 @@
+package com.arkavquarium.models;
+
 public class LinkedListIterator<E> {
     private E content;
     private LinkedListIterator<E> next;
@@ -16,28 +18,28 @@ public class LinkedListIterator<E> {
     /**
      * @return content of current item
      */
-    E getContent() {
+    public E getContent() {
         return this.content;
     }
 
     /**
      * @return previous iterator
      */
-    LinkedListIterator getPrev() {
+    public LinkedListIterator getPrev() {
         return this.prev;
     }
 
     /**
      * @return next iterator
      */
-    LinkedListIterator getNext() {
+    public LinkedListIterator getNext() {
         return this.next;
     }
 
     /**
      * @param E new iterator content
      */
-    void setContent(E content) {
+    public void setContent(E content) {
         this.content = content;
     }
 
@@ -45,7 +47,7 @@ public class LinkedListIterator<E> {
      * Set address to previous LinkedListIterator
      * @param prev previous iterator
      */
-    void setPrev(LinkedListIterator prev) {
+    public void setPrev(LinkedListIterator prev) {
         this.prev = prev;
     }
 
@@ -53,7 +55,7 @@ public class LinkedListIterator<E> {
      * Set address to next LinkedListItem
      * @param next next iterator
      */
-    void setNext(LinkedListIterator next) {
+    public void setNext(LinkedListIterator next) {
         this.next = next;
     }
 }

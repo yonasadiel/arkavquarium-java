@@ -1,3 +1,5 @@
+package com.arkavquarium.models;
+
 public class Piranha extends Fish {
     private final static int PRICE = 1000;
     private final static int MAX_VELOCITY = 50;

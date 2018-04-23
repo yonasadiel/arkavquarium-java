@@ -1,3 +1,5 @@
+package com.arkavquarium.models;
+
 public class LinkedList<E> {
     private LinkedListIterator<E> first;
     private LinkedListIterator<E> last;
@@ -5,7 +7,7 @@ public class LinkedList<E> {
     /**
      * Construct linked list with first = null and last = null
      */
-    LinkedList() {
+    public LinkedList() {
         this.first = null;
         this.last = null;
     }
@@ -15,7 +17,7 @@ public class LinkedList<E> {
      * @param element element to find
      * @return index of element
      */
-    int find(E element) {
+    public int find(E element) {
         int count = 0;
         boolean found = false;
         LinkedListIterator<E> it;
@@ -31,7 +33,7 @@ public class LinkedList<E> {
     /**
      * @return true if LinkedList is empty
      */
-    boolean isEmpty() {
+    public boolean isEmpty() {
         return this.first == null && this.last == null;
     }
 
@@ -39,7 +41,7 @@ public class LinkedList<E> {
      * Adds a new LinkedListIterator to front of list
      * @param element element to add
      */
-    void add(E element) {
+    public void add(E element) {
         LinkedListIterator<E> newIterator;
 
         newIterator = new LinkedListIterator<E>(element); 
@@ -55,7 +57,7 @@ public class LinkedList<E> {
      * Removes firs occurence LinkedListIterator with content element
      * @param element element to delete
      */
-    void remove(E element) {
+    public void remove(E element) {
         LinkedListIterator<E> it;
 
         it = this.first;
@@ -80,7 +82,7 @@ public class LinkedList<E> {
      * @param index Element index, must less than sizeof LinkedList
      * @return i-th element in the LinkedList
      */
-    E getContentAt(int index) {
+    public E getContentAt(int index) {
         return this.getIteratorAt(index).getContent();
     }
 
@@ -88,7 +90,7 @@ public class LinkedList<E> {
      * @param index Element index, must less than sizeof LinkedList
      * @return i-th it in the LinkedList
      */
-    LinkedListIterator<E> getIteratorAt(int index) {
+    public LinkedListIterator<E> getIteratorAt(int index) {
         LinkedListIterator<E> it;
         int i = 0;
 
@@ -104,7 +106,7 @@ public class LinkedList<E> {
      * The List is not empty
      * @return content of first LinkedListIterator
      */
-    E getFirstContent() {
+    public E getFirstContent() {
         return this.first.getContent();
     }
 
@@ -112,7 +114,7 @@ public class LinkedList<E> {
      * The List is not empty
      * @return first LinkedListIterator
      */
-    LinkedListIterator<E> getFirstIterator() {
+    public LinkedListIterator<E> getFirstIterator() {
         return this.first;
     }
 
@@ -120,7 +122,7 @@ public class LinkedList<E> {
      * The List is not empty
      * @return content of last LinkedListIterator
      */
-    E getLastContent() {
+    public E getLastContent() {
         return this.last.getContent();
     }
 
@@ -128,7 +130,7 @@ public class LinkedList<E> {
      * The List is not empty
      * @return last LinkedListIterator
      */
-    LinkedListIterator<E> getLastIterator() {
+    public LinkedListIterator<E> getLastIterator() {
         return this.last;
     }
 }

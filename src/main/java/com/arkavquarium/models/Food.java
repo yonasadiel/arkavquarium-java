@@ -1,3 +1,5 @@
+package com.arkavquarium.models;
+
 public class Food implements Drawable {
     private static final String assetPath = "assets/img/food.png";
     private static final int PRICE = 10;

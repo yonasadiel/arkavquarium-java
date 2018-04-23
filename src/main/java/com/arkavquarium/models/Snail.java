@@ -1,3 +1,5 @@
+package com.arkavquarium.models;
+
 public class Snail implements Drawable {
     private static final String assetPath = "assets/img/snail";
     private final int MAX_VELOCITY = 40;

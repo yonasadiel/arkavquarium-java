@@ -1,6 +1,8 @@
+package com.arkavquarium.models;
+
 import java.lang.Math;
 
-class Position {
+public class Position {
 	/**
 	 * Absis
 	 */

@@ -1,3 +1,5 @@
+package com.arkavquarium.models;
+
 public abstract class Fish implements Drawable {
     protected static final int MAX_VELOCITY = 35;
     /**
