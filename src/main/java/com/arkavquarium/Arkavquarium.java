@@ -13,5 +13,6 @@ public class Arkavquarium
         System.out.println( "Hello World!" );
 
         Data.setMoney(200);
+        System.out.println(Data.getMoney());
     }
 }

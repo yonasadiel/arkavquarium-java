@@ -3,7 +3,7 @@ package com.arkavquarium.models;
 public class Piranha extends Fish {
     private final static int PRICE = 1000;
     private final static int MAX_VELOCITY = 50;
-    private final static String assetPath = "assets/img/piranha";
+    private final static String assetPath = "src/main/resources/img/piranha";
     /**
      * Piranha has just eat a guppy
      * 0 if false
