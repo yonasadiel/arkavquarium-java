@@ -1,17 +1,26 @@
 package com.arkavquarium.controllers;
 
-import com.arkavquarium.models.*;
 import java.awt.*;
-import javax.swing.JFrame;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import javax.swing.*;
+import com.arkavquarium.models.*;
 
-public class Aquarium extends Canvas  {
-    public static final int WIN_CONDITION = 3;
-
+public class Aquarium extends JPanel  {
+    private static final int WIN_CONDITION = 3;
+    private static final String backgroundAssetPath = "src/main/resources/img/background.png";
+    private Timer timer;
+    private JFrame f;
+    
     /**
      * Construct with some guppies, one piranha and one snail 
      * with random position
      */
     public Aquarium() {
+        f = new JFrame("Arkavquarium");
+
         Guppy guppy1 = new Guppy();
         Data.getGuppies().add(guppy1);
 
@@ -19,7 +28,7 @@ public class Aquarium extends Canvas  {
         Guppy guppy2 = new Guppy();
         Data.getGuppies().add(guppy2);
 
-        Snail snail = new Snail();;
+        Snail snail = new Snail();
         Data.setSnail(snail);
     }
 
@@ -29,7 +38,50 @@ public class Aquarium extends Canvas  {
      * @param elapsedSeconds seconds elapsed since this method called last time
      * @return is the program will be still running
      */
-    // public boolean main(double elapsedSecods);
+    public void main() {
+        f.add(this);
+        f.addMouseListener(new MouseAdapter() {               
+            public void mouseReleased(MouseEvent e) {
+                super.mouseReleased(e);
+                if (e.getButton() == MouseEvent.BUTTON1) {   
+                    Position clickPos = new Position(e.getX(), e.getY());
+
+                    LinkedListIterator<Coin> coinIt = Data.getCoins().getFirstIterator();
+                    Coin clickedCoin = null;
+                    while (coinIt != null && (clickedCoin != null)) {
+                        System.out.println("<" + clickPos.getAbsis() + ", " + clickPos.getOrdinate() + ">  <" + 
+                            coinIt.getContent().getPosition().getAbsis() + ", " +
+                            coinIt.getContent().getPosition().getOrdinate());
+                        if (coinIt.getContent().getPosition().equals(clickPos)) {
+                            clickedCoin = coinIt.getContent();
+                        }
+                        coinIt = coinIt.getNext();
+                    }
+
+                    if (clickedCoin != null) {
+                        Data.setMoney(Data.getMoney()+ clickedCoin.getValue());
+                        Data.getCoins().remove(clickedCoin);
+                    } else {
+                        if ( Data.getMoney() > Food.getPrice() ) {
+                            Food newFood = new Food(clickPos);
+                            Data.getFoods().add(newFood);
+                            Data.setMoney(Data.getMoney() - Food.getPrice());
+                        }
+                    }
+                }
+            }
+        });
+        
+        f.setSize(Data.getMaxWidth(), Data.getMaxHeight());
+        f.setVisible(true);
+        f.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        timer = new Timer(1, new ActionListener(){ 
+            public void actionPerformed(ActionEvent e1) {
+                repaint();
+            }
+        });
+        timer.start();
+    }
 
     /**
      * For every Food find Foods with minimum distance to Guppy
@@ -37,28 +89,25 @@ public class Aquarium extends Canvas  {
      * @return Food with minimum distance to Guppy
      */
     public Food findNearestFood(Guppy guppy){
-        LinkedList<Food> liFood = Data.getFoods();
-
-        if(!(liFood.isEmpty())) {
+        if (!(Data.getFoods().isEmpty())) {
             double minDistance,tempDistance;
             Food nearestFood, tempFood;
 
-            LinkedListIterator<Food> liIteratorFood = liFood.getFirstIterator();
-            nearestFood = liIteratorFood.getContent();
+            LinkedListIterator<Food> itFood = Data.getFoods().getFirstIterator();
+            nearestFood = itFood.getContent();
             minDistance = guppy.getPosition().magnitude(nearestFood.getPosition());
             
-            while (liIteratorFood.getNext() != liFood.getLastIterator()) {
-                tempFood = liIteratorFood.getContent();
+            while (itFood != null) {
+                tempFood = itFood.getContent();
                 tempDistance = guppy.getPosition().magnitude(tempFood.getPosition());
                 if (tempDistance < minDistance) {
                     minDistance = tempDistance ;
                     nearestFood = tempFood;
                 }
-                liIteratorFood = liIteratorFood.getNext();
+                itFood = itFood.getNext();
             }
             
             return nearestFood;
-
         } else {
             return null;
         }
@@ -161,7 +210,7 @@ public class Aquarium extends Canvas  {
      * For every coin, move coin to ground
      * For every food, move food to food
      * Move snail to nearest coin
-     * @param elpasedSeconds since last invocation
+     * @param elapsedSeconds since last invocation
      */
     public void moveObjects(double elapsedSeconds) {
         LinkedListIterator<Coin> currentCoin = Data.getCoins().getFirstIterator();
@@ -205,7 +254,7 @@ public class Aquarium extends Canvas  {
                         currentGuppy
                             .getContent()
                             .moveToDestination(nearestFood.getPosition(), elapsedSeconds);
-                        if (currentGuppy.getContent().getPosition() == nearestFood.getPosition()) {
+                        if (currentGuppy.getContent().getPosition().equals(nearestFood.getPosition())) {
                             currentGuppy.getContent().eat();
                             Data.getFoods().remove(nearestFood);
                         }
@@ -240,7 +289,7 @@ public class Aquarium extends Canvas  {
                         currentPiranha
                             .getContent()
                             .moveToDestination(nearestGuppy.getPosition(), elapsedSeconds);
-                        if (currentPiranha.getContent().getPosition() == nearestGuppy.getPosition()) {
+                        if (currentPiranha.getContent().getPosition().equals(nearestGuppy.getPosition())) {
                             currentPiranha.getContent().eat(nearestGuppy.getGrowthStepInt());
                             Data.getGuppies().remove(nearestGuppy);
                         }
@@ -259,7 +308,7 @@ public class Aquarium extends Canvas  {
         if(!(Data.getCoins().isEmpty())){
             Coin nearestcoin = findNearestCoin(currentSnail);
             currentSnail.moveToDestination(nearestcoin.getPosition(), elapsedSeconds);
-            if (currentSnail.getPosition() == nearestcoin.getPosition()) {
+            if (currentSnail.getPosition().equals(nearestcoin.getPosition())) {
                 Data.getCoins().remove(nearestcoin);
                 Data.setMoney(Data.getMoney()+nearestcoin.getValue());
             }
@@ -270,8 +319,75 @@ public class Aquarium extends Canvas  {
     /**
      * Draw all entity
      */
-    public void draw() {
-        //
+    public void paint(Graphics g) {
+        this.moveObjects(0.001);
+        this.produceCoin();
+        //this.tank.draw_text("Panah untuk bergerak, r untuk reset, x untuk keluar", 18, 10, 10, 0, 0, 0);
+        Toolkit t = Toolkit.getDefaultToolkit();
+        Image image;
+        g.setFont(new Font("TimesRoman", Font.PLAIN, 30));
+        g.drawImage(t.getImage(Aquarium.backgroundAssetPath), 0, 0, this);
+
+        LinkedListIterator<Guppy> guppyIt = Data.getGuppies().getFirstIterator();
+        while (guppyIt != null) {
+            image = t.getImage(guppyIt.getContent().getAssetPath());
+            g.drawImage(image, 
+                        (int)guppyIt.getContent().getPosition().getAbsis() - image.getWidth(this) / 2, 
+                        (int)guppyIt.getContent().getPosition().getOrdinate() - image.getHeight(this) / 2, this);
+            guppyIt = guppyIt.getNext();
+        }
+
+        LinkedListIterator<Piranha> piranhaIt = Data.getPiranhas().getFirstIterator();
+        while (piranhaIt != null) {
+            image = t.getImage(piranhaIt.getContent().getAssetPath());
+            g.drawImage(image,
+                        (int)piranhaIt.getContent().getPosition().getAbsis() - image.getWidth(this) / 2,
+                        (int)piranhaIt.getContent().getPosition().getOrdinate() - image.getHeight(this) / 2, this);
+            piranhaIt = piranhaIt.getNext();
+        }
+
+        LinkedListIterator<Coin> coinIt = Data.getCoins().getFirstIterator();
+        while (coinIt != null) {
+            image = t.getImage(coinIt.getContent().getAssetPath());
+            g.drawImage(image,
+                    (int) coinIt.getContent().getPosition().getAbsis() - image.getWidth(this) / 2,
+                    (int) coinIt.getContent().getPosition().getOrdinate() - image.getHeight(this) / 2, this);
+            coinIt = coinIt.getNext();
+        }
+
+        LinkedListIterator<Food> foodIt = Data.getFoods().getFirstIterator();
+        while (foodIt != null) {
+            image = t.getImage(foodIt.getContent().getAssetPath());
+            g.drawImage(t.getImage(foodIt.getContent().getAssetPath()),
+                    (int) foodIt.getContent().getPosition().getAbsis() - image.getWidth(this) / 2,
+                    (int) foodIt.getContent().getPosition().getOrdinate() - image.getHeight(this) / 2, this);
+            foodIt = foodIt.getNext();
+        }
+
+        Snail currentSnail;
+        currentSnail = Data.getSnail();
+        image = t.getImage(currentSnail.getAssetPath());
+        g.drawImage(image,
+                    (int) currentSnail.getPosition().getAbsis() - image.getWidth(this) / 2,
+                    (int) currentSnail.getPosition().getOrdinate() - image.getHeight(this) / 2, this);
+        
+        // //Draw Money
+        // this.tank.draw_image("assets/img/coin_shine.png", 15, 50);
+        // this.tank.draw_text(std.to_string(Data.getMoney()), 35, 30, 35, 0, 0, 0);
+        // //Draw Egg
+        // this.tank.draw_image("assets/img/egg.png", this.getWidth() - 30, 55);
+        // this.tank.draw_text(std.to_string(Data.getEgg()), 35, this.getWidth()-70, 35, 0, 0, 0);
+        
+        // this.tank.draw_text("Press G to buy Guppy (100 coins)        Press P to buy Piranha (1000 coins)          Press E to buy Egg (1000 coins)", 20, 15, 77, 0, 0, 0);
+        
+        // if (this.winState()) {
+        //     this.tank.draw_text("CONGRATULATIONS!!!", 25, (int)this.width/2, (int)this.height/2, 0, 0, 0);
+        // } else if (this.loseState()) {
+        //     this.tank.draw_text("YOU LOSE!!!", 25, (int)this.width/2, (int)this.height/2, 0, 0, 0);
+        // } 
+        
+        // this.tank.update_screen();
+        // //
     }
 
     /**
@@ -310,12 +426,12 @@ public class Aquarium extends Canvas  {
      * @return Data.getEgg == WinCondition
      */
     public boolean winState() {
-        return Data.getEgg() == this.WIN_CONDITION;
+        return Data.getEgg() == Aquarium.WIN_CONDITION;
     }
 
     /**
      * The game has been finished and the player lose
-     * @return there is no fish, coin, and money < 100
+     * @return there is no fish, coin, and money {@literal <} 100
      */
     public boolean loseState() {
         return 

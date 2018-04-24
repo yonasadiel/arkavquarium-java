@@ -3,14 +3,12 @@ package com.arkavquarium.tests;
 import org.junit.Test;
 import org.junit.Before;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertFalse;
 import com.arkavquarium.models.Position;
 import com.arkavquarium.models.Snail;
 import com.arkavquarium.models.Data;
 
 public class SnailTest {
-    private double tolerance = 0.0001;
+    private double tolerance = 3;
 
     @Before
     public void prepareMaxWidthHeight() {

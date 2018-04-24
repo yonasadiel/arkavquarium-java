@@ -98,7 +98,7 @@ public class Data {
 	}
 
 	/**
-	 * @param Snail new snail
+	 * @param snail new snail
 	 */
 	public static void setSnail(Snail snail) {
 		Data.snail = snail;

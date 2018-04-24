@@ -37,7 +37,7 @@ public class LinkedListIterator<E> {
     }
 
     /**
-     * @param E new iterator content
+     * @param content new iterator content
      */
     public void setContent(E content) {
         this.content = content;

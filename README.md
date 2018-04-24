@@ -32,8 +32,8 @@ mvn --version
 mvn compile
 # run test
 mvn test
-# run class
-java target/classes/com/arkavquarium/Arkavquarium
+# run Arkavquarium
+mvn exec:java -Dexec.mainClass="com.arkavquarium.Arkavquarium"
 ```
 
 ## Credits

@@ -1,8 +1,8 @@
 package com.arkavquarium.models;
 
 public class Coin implements Drawable {
-	private static final String assetPathCoin = "assets/img/coin_shnine.png";
-	private static final String assetPathRuby = "assets/img/ruby.png";
+	private static final String assetPathCoin = "src/main/resources/img/coin_shine.png";
+	private static final String assetPathRuby = "src/main/resources/img/ruby.png";
 	private static final int MAX_VELOCITY = 40;
 	private Position position;
 	private int value;

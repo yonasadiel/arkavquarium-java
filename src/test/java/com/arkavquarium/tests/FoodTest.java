@@ -6,7 +6,7 @@ import com.arkavquarium.models.Position;
 import com.arkavquarium.models.Food;
 
 public class FoodTest {
-    private double tolerance = 0.001;
+    private double tolerance = 3;
 
     @Test
     public void testAbsisContructor() {
@@ -17,8 +17,7 @@ public class FoodTest {
 
     @Test
     public void testPriceConstructor() {
-        Food f = new Food(new Position(100, 200));
-        assertEquals("constructor Food set Price to 10 by default", 10, f.getPrice());
+        assertEquals("constructor Food set Price to 10 by default", 10, Food.getPrice());
     }
 
     @Test
@@ -40,6 +39,6 @@ public class FoodTest {
     @Test
     public void testAssetPath() {
         Food f = new Food(new Position(100, 200));
-        assertEquals("getAssetPath return asset path", "src/main/img/food.png", f.getAssetPath());
+        assertEquals("getAssetPath return asset path", "src/main/resources/img/food.png", f.getAssetPath());
     }
 }

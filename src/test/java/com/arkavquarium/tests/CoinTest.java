@@ -7,7 +7,7 @@ import com.arkavquarium.models.Data;
 import com.arkavquarium.models.Coin;
 
 public class CoinTest {
-    private double tolerance = 0.001;
+    private double tolerance = 3;
 
     @Test
     public void testConstructorValue() {
@@ -57,20 +57,20 @@ public class CoinTest {
     public void testAssetLessThanBound() {
         Position p = new Position(10, 20);
         Coin c = new Coin(49, p);
-        assertEquals("getAssetPath return coin if less than 50", "src/main/resources/coin_shine.png", c.getAssetPath());
+        assertEquals("getAssetPath return coin if less than 50", "src/main/resources/img/coin_shine.png", c.getAssetPath());
     }
 
     @Test
     public void testAssetSameAsBound() {
         Position p = new Position(10, 20);
         Coin c = new Coin(50, p);
-        assertEquals("getAssetPath return coin if same as 50", "src/main/resources/ruby.png", c.getAssetPath());
+        assertEquals("getAssetPath return coin if same as 50", "src/main/resources/img/ruby.png", c.getAssetPath());
     }
 
     @Test
     public void testAssetMoreThanBound() {
         Position p = new Position(10, 20);
         Coin c = new Coin(51, p);
-        assertEquals("getAssetPath return coin if more than 50", "src/main/resources/ruby.png", c.getAssetPath());
+        assertEquals("getAssetPath return coin if more than 50", "src/main/resources/img/ruby.png", c.getAssetPath());
     }
 }

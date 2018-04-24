@@ -9,7 +9,7 @@ import com.arkavquarium.models.Position;
 import com.arkavquarium.models.Data;
 
 public class PositionTest {
-    private double tolerance = 0.001;
+    private double tolerance = 3;
 
     @Before
     public void prepareMaxWidthHeight() {
@@ -122,17 +122,17 @@ public class PositionTest {
     @Test
     public void testToleranceEquals() {
         Position p1 = new Position(2.5, 3.5);
-        Position p2 = new Position(2.50005, 3.50005);
-        assertTrue("p1 should be equals to in tolerance 0.0001 p2", p1.equals(p2));
-        assertTrue("p2 should be equals to in tolerance 0.0001 p1", p2.equals(p1));
+        Position p2 = new Position(2.5 + this.tolerance / 2, 3.5 + this.tolerance / 2);
+        assertTrue("p1 should be equals to in tolerance p2", p1.equals(p2));
+        assertTrue("p2 should be equals to in tolerance p1", p2.equals(p1));
     }
 
     @Test
     public void testIntolerantEquals() {
         Position p1 = new Position(2.5, 3.5);
-        Position p2 = new Position(2.5001, 3.5001);
-        assertFalse("p1 should be equals to out of tolerance 0.0001 p2", p1.equals(p2));
-        assertFalse("p2 should be equals to out of tolerance 0.0001 p1", p2.equals(p1));
+        Position p2 = new Position(2.5 + this.tolerance + 0.001, 3.5 + this.tolerance + 0.001);
+        assertFalse("p1 should not be equals to out of tolerance p2", p1.equals(p2));
+        assertFalse("p2 should not be equals to out of tolerance p1", p2.equals(p1));
     }
 
     @Test

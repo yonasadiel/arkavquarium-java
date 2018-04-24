@@ -118,18 +118,18 @@ public class Position {
 	
 	/**
 	 * Compare postion
-	 * @param comp the position to compare with
+	 * @param other comp the position to compare with
 	 * @return true if both positions have same coordinate
 	 */
 	public boolean equals(Position other) {
 		double deltaX = Math.abs(this.x - other.x);
 		double deltaY = Math.abs(this.y - other.y);
-		return ( deltaX <= 0.0001 && deltaY <= 0.0001 );
+		return (deltaX <= 3 && deltaY <= 3);
 	}
 
 	/**
-	 * Return the magnitude between to position comp
 	 * @param comp the end position
+	 * @return the magnitude between to position comp
 	 */
 	public double magnitude(Position comp) {
 		double lenV;
@@ -138,5 +138,14 @@ public class Position {
     	Vy = comp.getOrdinate() - this.getOrdinate();
     	lenV = Math.sqrt(Math.pow(Vx, 2) + Math.pow(Vy, 2));
     	return lenV;
-	} 
+	}
+	
+	
+	/**
+	 * @param temp any position
+	 * @return true if this position greater than temp
+	 */
+	public boolean isGreater(Position temp) {
+		return this.getAbsis() > temp.getAbsis() && this.getOrdinate() > temp.getOrdinate();
+	}
 }
