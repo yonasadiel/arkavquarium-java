@@ -4,6 +4,8 @@ import com.arkavquarium.Arkavquarium;
 import com.arkavquarium.models.*;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -13,8 +15,10 @@ import javax.swing.*;
 public class Aquarium extends JPanel  {
     public static final int WIN_CONDITION = 3;
 
+    private Timer waktu;
 
-
+    public JFrame f = new JFrame("Arkavquarium");
+    
     /**
      * Construct with some guppies, one piranha and one snail 
      * with random position
@@ -37,21 +41,49 @@ public class Aquarium extends JPanel  {
      * @param elapsedSeconds seconds elapsed since this method called last time
      * @return is the program will be still running
      */
-    public void main(double elapsedSecods){
+    public void main(){
         boolean stillRunning = true;
-        Arkavquarium.f.addMouseListener(new MouseAdapter() {
-                       
+        f.add(this);
+        f.addMouseListener(new MouseAdapter() {               
             public void mouseReleased(MouseEvent e) {
                 super.mouseReleased(e);
-                if (e.getButton() == MouseEvent.BUTTON1) {
+                if (e.getButton() == MouseEvent.BUTTON1) {   
+                    Position clickPos = new Position(e.getX(),e.getY());
                     System.out.println("Mouse Clicked : " + e.getX() + ", " + e.getY());
+
+                    LinkedListIterator<Coin> coinIt = Data.getCoins().getFirstIterator();
+                    Coin clickedCoin = null;
+                    while ( coinIt != null && (clickedCoin != null)){
+                        if(coinIt.getContent().getPosition().equals(clickPos)) {
+                            clickedCoin = coinIt.getContent();
+                        }
+                        coinIt = coinIt.getNext();
+                    }
+
+                    if (clickedCoin != null) {
+                        Data.setMoney(Data.getMoney()+ clickedCoin.getValue());
+                        Data.getCoins().remove(clickedCoin);
+                    } else {
+                        if ( Data.getMoney() > Food.getPrice() ) {
+                            Food newFood = new Food(clickPos);
+                            Data.getFoods().add(newFood);
+                            Data.setMoney(Data.getMoney() - Food.getPrice());
+                        }
+                    }
                 }
-            
             }
         });
-    
         
-        // return false;
+        f.setSize(Data.getMaxWidth(), Data.getMaxHeight());
+        f.setVisible(true);
+        f.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        waktu = new Timer(1, new ActionListener(){ 
+            public void actionPerformed(ActionEvent e1) {
+                repaint();
+            }
+        });
+        waktu.start();
+
     }
 
     /**
@@ -294,6 +326,8 @@ public class Aquarium extends JPanel  {
      * Draw all entity
      */
     public void paint(Graphics g) {
+        this.moveObjects(0.001);
+        this.produceCoin();
         // this.tank.clear_screen();
         //this.tank.draw_text("Panah untuk bergerak, r untuk reset, x untuk keluar", 18, 10, 10, 0, 0, 0);
         Toolkit t = Toolkit.getDefaultToolkit();
@@ -303,33 +337,38 @@ public class Aquarium extends JPanel  {
 
         LinkedListIterator<Guppy> guppyIt = Data.getGuppies().getFirstIterator();
         while (guppyIt != null) {
-            g.drawImage(t.getImage(guppyIt.getContent().getAssetPath()), 
-                        (int)guppyIt.getContent().getPosition().getAbsis(), 
-                        (int)guppyIt.getContent().getPosition().getOrdinate(), this);
+            image = t.getImage(guppyIt.getContent().getAssetPath());
+            g.drawImage(image, 
+                        (int)guppyIt.getContent().getPosition().getAbsis() - image.getWidth(this) / 2, 
+                        (int)guppyIt.getContent().getPosition().getOrdinate() - image.getHeight(this) / 2, this);
             guppyIt = guppyIt.getNext();
         }
 
         LinkedListIterator<Piranha> piranhaIt = Data.getPiranhas().getFirstIterator();
         while (piranhaIt != null) {
-            g.drawImage(t.getImage(piranhaIt.getContent().getAssetPath()), 
-                        (int)piranhaIt.getContent().getPosition().getAbsis(),
-                        (int)piranhaIt.getContent().getPosition().getOrdinate(), this);
+            image = t.getImage(piranhaIt.getContent().getAssetPath());
+            g.drawImage(image,
+                        (int)piranhaIt.getContent().getPosition().getAbsis() - image.getWidth(this) / 2,
+                        (int)piranhaIt.getContent().getPosition().getOrdinate() - image.getHeight(this) / 2, this);
             piranhaIt = piranhaIt.getNext();
         }
 
         LinkedListIterator<Coin> coinIt = Data.getCoins().getFirstIterator();
         while (coinIt != null) {
-            g.drawImage(t.getImage(coinIt.getContent().getAssetPath()),
-                    (int) coinIt.getContent().getPosition().getAbsis(),
-                    (int) coinIt.getContent().getPosition().getOrdinate(), this);
+            image = t.getImage(coinIt.getContent().getAssetPath());
+            g.drawImage(image,
+                    (int) coinIt.getContent().getPosition().getAbsis() - image.getWidth(this) / 2,
+                    (int) coinIt.getContent().getPosition().getOrdinate() - image.getHeight(this) / 2, this);
             coinIt = coinIt.getNext();
         }
 
         LinkedListIterator<Food> foodIt = Data.getFoods().getFirstIterator();
         while (foodIt != null) {
+            image = t.getImage(foodIt.getContent().getAssetPath());
+            System.out.println(foodIt.getContent().getAssetPath());
             g.drawImage(t.getImage(foodIt.getContent().getAssetPath()),
-                    (int) foodIt.getContent().getPosition().getAbsis(),
-                    (int) foodIt.getContent().getPosition().getOrdinate(), this);
+                    (int) foodIt.getContent().getPosition().getAbsis() - image.getWidth(this) / 2,
+                    (int) foodIt.getContent().getPosition().getOrdinate() - image.getHeight(this) / 2, this);
             foodIt = foodIt.getNext();
         }
 

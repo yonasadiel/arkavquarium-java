@@ -138,5 +138,14 @@ public class Position {
     	Vy = comp.getOrdinate() - this.getOrdinate();
     	lenV = Math.sqrt(Math.pow(Vx, 2) + Math.pow(Vy, 2));
     	return lenV;
-	} 
+	}
+	
+	
+	/**
+	 * @param temp any position
+	 * @return true if this position greater than temp
+	 */
+	public boolean isGreater(Position temp) {
+		return this.getAbsis() > temp.getAbsis() && this.getOrdinate() > temp.getOrdinate();
+	}
 }

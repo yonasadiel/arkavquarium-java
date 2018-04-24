@@ -43,7 +43,7 @@ public class Food implements Drawable {
     /**
      * @return food price
      */
-    public final int getPrice(){
+    public static final int getPrice(){
         return PRICE;
     }
 }
