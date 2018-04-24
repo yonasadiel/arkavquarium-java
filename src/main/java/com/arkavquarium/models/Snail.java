@@ -10,7 +10,6 @@ public class Snail implements Drawable {
     * Construct Snail with random position
     */
     public Snail(){
-        int maxWidth = Data.getMaxWidth();
         int maxHeight = Data.getMaxHeight();
         this.position = new Position();
         this.position.setOrdinate(maxHeight-(maxHeight/10));

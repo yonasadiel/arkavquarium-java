@@ -4,25 +4,14 @@ import com.arkavquarium.models.*;
 import java.awt.*;
 import javax.swing.JFrame;
 
-public class Arkavquarium extends Canvas  {
+public class Aquarium extends Canvas  {
     public static final int WIN_CONDITION = 3;
-    private final int INIT_EGG = 0;
-    private final int INIT_MONEY = 200; 
 
-    private int width;
-    private int height;
     /**
      * Construct with some guppies, one piranha and one snail 
      * with random position
-     * @param {int} height of aquarium
-     * @param {int} width of aquarium
      */
-    public Arkavquarium() {
-        this.width = Data.getMaxHeight();
-        this.height = Data.getMaxHeight();
-        Data.setEgg(this.INIT_EGG);
-        Data.setMoney(this.INIT_MONEY);
-    
+    public Aquarium() {
         Guppy guppy1 = new Guppy();
         Data.getGuppies().add(guppy1);
 
@@ -35,31 +24,17 @@ public class Arkavquarium extends Canvas  {
     }
 
     /**
-         * @return {int} width of Aquarium
-         */
-    public final int getWidth(){
-        return this.width;
-    }
-
-    /**
-         * @return {int} height of Aquarium
-         */
-    public final int getHeight(){
-        return this.height;
-    }
-
-    /**
      * Move Guppies, Piranhas, Foods, Coins, and Snail
      * Create new Guppy randomly
-     * @param {double} seconds elapsed since this method called last time
-     * @return {bool} is the program will be still running
+     * @param elapsedSeconds seconds elapsed since this method called last time
+     * @return is the program will be still running
      */
-// public boolean main(double elapsedSecods);
+    // public boolean main(double elapsedSecods);
 
     /**
      * For every Food find Foods with minimum distance to Guppy
-     * @param {Guppy*} Guppy to find nearest Food
-     * @return {Food*} Food with minimum distance to Guppy
+     * @param guppy to find nearest Food
+     * @return Food with minimum distance to Guppy
      */
     public Food findNearestFood(Guppy guppy){
         LinkedList<Food> liFood = Data.getFoods();
@@ -89,11 +64,11 @@ public class Arkavquarium extends Canvas  {
         }
     }
         
-        /**
-         * For every Coin find Coin with minimum distance to Snail
-         * @param {Snail*} Snail to find nearest coin
-         * @return {Coin*} Coin with minimum distance to snail
-         */
+    /**
+     * For every Coin find Coin with minimum distance to Snail
+     * @param snail to find nearest coin
+     * @return Coin with minimum distance to snail
+     */
     public Coin findNearestCoin(Snail snail){
         LinkedList <Coin> liCoin = Data.getCoins();
 
@@ -122,11 +97,11 @@ public class Arkavquarium extends Canvas  {
         }
     }
         
-        /**
-         * For every Guppy find Guppy with minimum distance to Piranha
-         * @param {Piranha*} Piranha to find nearest Guppy
-         * @return {Guppy*} Guppy with minimum distance to Piranha
-         */
+    /**
+     * For every Guppy find Guppy with minimum distance to Piranha
+     * @param piranha Piranha to find nearest Guppy
+     * @return Guppy with minimum distance to Piranha
+     */
     public Guppy findNearestGuppy(Piranha piranha) {
         LinkedList<Guppy> liGuppy = Data.getGuppies();
 
@@ -186,7 +161,7 @@ public class Arkavquarium extends Canvas  {
      * For every coin, move coin to ground
      * For every food, move food to food
      * Move snail to nearest coin
-     * @param {double} elapsed seconds
+     * @param elpasedSeconds since last invocation
      */
     public void moveObjects(double elapsedSeconds) {
         LinkedListIterator<Coin> currentCoin = Data.getCoins().getFirstIterator();
@@ -198,8 +173,8 @@ public class Arkavquarium extends Canvas  {
 
         LinkedListIterator<Food> currentFood = Data.getFoods().getFirstIterator();
         while(currentFood != null){
-            currentFood.getContent().move(this.height-(this.height/10), elapsedSeconds);
-            if (currentFood.getContent().getPosition().getOrdinate() >= 9*this.height/10) {
+            currentFood.getContent().move(Data.getMaxHeight()-(Data.getMaxHeight()/10), elapsedSeconds);
+            if (currentFood.getContent().getPosition().getOrdinate() >= 9*Data.getMaxHeight()/10) {
                 Food droppedFood = currentFood.getContent();
                 Data.getFoods().remove(droppedFood);
             }
@@ -300,9 +275,9 @@ public class Arkavquarium extends Canvas  {
     }
 
     /**
-         * Draw a drawable
-         * @param {Drawable*} drawable object to draw
-         */
+     * Draw a drawable
+     * @param drawable object to draw
+     */
     public void drawDrawable(Drawable  drawable){
 
     }
@@ -332,7 +307,7 @@ public class Arkavquarium extends Canvas  {
 
     /**
      * The game has been finished and the player wins
-     * return {bool} Data.getEgg == WinCondition
+     * @return Data.getEgg == WinCondition
      */
     public boolean winState() {
         return Data.getEgg() == this.WIN_CONDITION;
@@ -340,7 +315,7 @@ public class Arkavquarium extends Canvas  {
 
     /**
      * The game has been finished and the player lose
-     * return {bool} there is no fish, coin, and money < 100
+     * @return there is no fish, coin, and money < 100
      */
     public boolean loseState() {
         return 
@@ -348,13 +323,5 @@ public class Arkavquarium extends Canvas  {
             Data.getPiranhas().isEmpty() &&
             Data.getCoins().isEmpty() &&
             Data.getMoney() < Guppy.getPrice();
-
-    }
-
-    public static void main( String[] args ) {
-        System.out.println( "Hello World!" );
-
-        Data.setMoney(200);
-        System.out.println(Data.getMoney());
     }
 }

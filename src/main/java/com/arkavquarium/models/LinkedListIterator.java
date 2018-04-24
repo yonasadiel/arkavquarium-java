@@ -25,14 +25,14 @@ public class LinkedListIterator<E> {
     /**
      * @return previous iterator
      */
-    public LinkedListIterator getPrev() {
+    public LinkedListIterator<E> getPrev() {
         return this.prev;
     }
 
     /**
      * @return next iterator
      */
-    public LinkedListIterator getNext() {
+    public LinkedListIterator<E> getNext() {
         return this.next;
     }
 
@@ -47,7 +47,7 @@ public class LinkedListIterator<E> {
      * Set address to previous LinkedListIterator
      * @param prev previous iterator
      */
-    public void setPrev(LinkedListIterator prev) {
+    public void setPrev(LinkedListIterator<E> prev) {
         this.prev = prev;
     }
 
@@ -55,7 +55,7 @@ public class LinkedListIterator<E> {
      * Set address to next LinkedListItem
      * @param next next iterator
      */
-    public void setNext(LinkedListIterator next) {
+    public void setNext(LinkedListIterator<E> next) {
         this.next = next;
     }
 }
