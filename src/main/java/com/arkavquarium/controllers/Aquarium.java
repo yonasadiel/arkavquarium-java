@@ -161,7 +161,7 @@ public class Aquarium extends Canvas  {
      * For every coin, move coin to ground
      * For every food, move food to food
      * Move snail to nearest coin
-     * @param elpasedSeconds since last invocation
+     * @param elapsedSeconds since last invocation
      */
     public void moveObjects(double elapsedSeconds) {
         LinkedListIterator<Coin> currentCoin = Data.getCoins().getFirstIterator();
@@ -315,7 +315,7 @@ public class Aquarium extends Canvas  {
 
     /**
      * The game has been finished and the player lose
-     * @return there is no fish, coin, and money < 100
+     * @return there is no fish, coin, and money {@literal <} 100
      */
     public boolean loseState() {
         return 

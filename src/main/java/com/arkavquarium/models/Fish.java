@@ -124,14 +124,14 @@ public abstract class Fish implements Drawable {
     public abstract int isProduceCoin();
 
     /**
-     * @return REPLETE TIME <= starvingTimer <= STARVING TIME 
+     * @return REPLETE TIME {@literal <}= starvingTimer {@literal <}= STARVING TIME
      */
     public boolean isStarving(){
         return (REPLETE_TIME <= this.starvingTimer) && (this.starvingTimer <= STARVATION_TIME);
     }
 
     /**
-     * @return starvingTimer > STARVING TIME
+     * @return starvingTimer {@literal >} STARVING TIME
      */
     public boolean isDie(){
         return this.getStarvingTimer() > STARVATION_TIME;
