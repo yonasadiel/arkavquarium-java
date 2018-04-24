@@ -118,7 +118,7 @@ public class Position {
 	
 	/**
 	 * Compare postion
-	 * @param comp the position to compare with
+	 * @param other comp the position to compare with
 	 * @return true if both positions have same coordinate
 	 */
 	public boolean equals(Position other) {
@@ -128,8 +128,8 @@ public class Position {
 	}
 
 	/**
-	 * Return the magnitude between to position comp
 	 * @param comp the end position
+	 * @return the magnitude between to position comp
 	 */
 	public double magnitude(Position comp) {
 		double lenV;
