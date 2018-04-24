@@ -7,7 +7,7 @@ import com.arkavquarium.models.Data;
 import com.arkavquarium.models.Coin;
 
 public class CoinTest {
-    private double tolerance = 3;
+    private double tolerance = 10;
 
     @Test
     public void testConstructorValue() {

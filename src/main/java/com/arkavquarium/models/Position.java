@@ -119,12 +119,10 @@ public class Position {
 	/**
 	 * Compare postion
 	 * @param other comp the position to compare with
-	 * @return true if both positions have same coordinate
+	 * @return true if both positions have same coordinate with tolerance 10
 	 */
 	public boolean equals(Position other) {
-		double deltaX = Math.abs(this.x - other.x);
-		double deltaY = Math.abs(this.y - other.y);
-		return (deltaX <= 3 && deltaY <= 3);
+		return this.magnitude(other) <= 10;
 	}
 
 	/**

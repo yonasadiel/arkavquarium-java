@@ -48,10 +48,7 @@ public class Aquarium extends JPanel  {
 
                     LinkedListIterator<Coin> coinIt = Data.getCoins().getFirstIterator();
                     Coin clickedCoin = null;
-                    while (coinIt != null && (clickedCoin != null)) {
-                        System.out.println("<" + clickPos.getAbsis() + ", " + clickPos.getOrdinate() + ">  <" + 
-                            coinIt.getContent().getPosition().getAbsis() + ", " +
-                            coinIt.getContent().getPosition().getOrdinate());
+                    while (coinIt != null && clickedCoin == null) {
                         if (coinIt.getContent().getPosition().equals(clickPos)) {
                             clickedCoin = coinIt.getContent();
                         }
@@ -126,18 +123,18 @@ public class Aquarium extends JPanel  {
             double minDistance, tempDistance;
             Coin nearestCoin, tempCoin;
 
-            LinkedListIterator<Coin> liIteratorCoin = liCoin.getFirstIterator();
-            nearestCoin = liIteratorCoin.getContent();
+            LinkedListIterator<Coin> itCoin = liCoin.getFirstIterator();
+            nearestCoin = itCoin.getContent();
             minDistance = snail.getPosition().magnitude(nearestCoin.getPosition());
 
-            while (liIteratorCoin.getNext() != liCoin.getLastIterator()) {
-                tempCoin = liIteratorCoin.getContent();
+            while (itCoin != null) {
+                tempCoin = itCoin.getContent();
                 tempDistance = snail.getPosition().magnitude(tempCoin.getPosition());
                 if (tempDistance < minDistance) {
                     minDistance = tempDistance;
                     nearestCoin = tempCoin;
                 }
-                liIteratorCoin = liIteratorCoin.getNext();
+                itCoin = itCoin.getNext();
             }
 
             return nearestCoin;
@@ -326,14 +323,15 @@ public class Aquarium extends JPanel  {
         Toolkit t = Toolkit.getDefaultToolkit();
         Image image;
         g.setFont(new Font("TimesRoman", Font.PLAIN, 30));
-        g.drawImage(t.getImage(Aquarium.backgroundAssetPath), 0, 0, this);
+        image = t.getImage(Aquarium.backgroundAssetPath);
+        g.drawImage(image, getWidth()/2 - image.getWidth(this)/2, getHeight()/2 - image.getHeight(this)/2, this);
 
         LinkedListIterator<Guppy> guppyIt = Data.getGuppies().getFirstIterator();
         while (guppyIt != null) {
             image = t.getImage(guppyIt.getContent().getAssetPath());
             g.drawImage(image, 
-                        (int)guppyIt.getContent().getPosition().getAbsis() - image.getWidth(this) / 2, 
-                        (int)guppyIt.getContent().getPosition().getOrdinate() - image.getHeight(this) / 2, this);
+                        (int) (guppyIt.getContent().getPosition().getAbsis() - image.getWidth(this) / 2), 
+                        (int) (guppyIt.getContent().getPosition().getOrdinate() - image.getHeight(this)), this);
             guppyIt = guppyIt.getNext();
         }
 
@@ -341,8 +339,8 @@ public class Aquarium extends JPanel  {
         while (piranhaIt != null) {
             image = t.getImage(piranhaIt.getContent().getAssetPath());
             g.drawImage(image,
-                        (int)piranhaIt.getContent().getPosition().getAbsis() - image.getWidth(this) / 2,
-                        (int)piranhaIt.getContent().getPosition().getOrdinate() - image.getHeight(this) / 2, this);
+                        (int) (piranhaIt.getContent().getPosition().getAbsis() - image.getWidth(this) / 2),
+                        (int) (piranhaIt.getContent().getPosition().getOrdinate() - image.getHeight(this)), this);
             piranhaIt = piranhaIt.getNext();
         }
 
@@ -350,8 +348,8 @@ public class Aquarium extends JPanel  {
         while (coinIt != null) {
             image = t.getImage(coinIt.getContent().getAssetPath());
             g.drawImage(image,
-                    (int) coinIt.getContent().getPosition().getAbsis() - image.getWidth(this) / 2,
-                    (int) coinIt.getContent().getPosition().getOrdinate() - image.getHeight(this) / 2, this);
+                    (int) (coinIt.getContent().getPosition().getAbsis() - image.getWidth(this) / 2),
+                    (int) (coinIt.getContent().getPosition().getOrdinate() - image.getHeight(this)), this);
             coinIt = coinIt.getNext();
         }
 
@@ -359,8 +357,8 @@ public class Aquarium extends JPanel  {
         while (foodIt != null) {
             image = t.getImage(foodIt.getContent().getAssetPath());
             g.drawImage(t.getImage(foodIt.getContent().getAssetPath()),
-                    (int) foodIt.getContent().getPosition().getAbsis() - image.getWidth(this) / 2,
-                    (int) foodIt.getContent().getPosition().getOrdinate() - image.getHeight(this) / 2, this);
+                    (int) (foodIt.getContent().getPosition().getAbsis() - image.getWidth(this) / 2),
+                    (int) (foodIt.getContent().getPosition().getOrdinate() - image.getHeight(this)), this);
             foodIt = foodIt.getNext();
         }
 
@@ -368,8 +366,8 @@ public class Aquarium extends JPanel  {
         currentSnail = Data.getSnail();
         image = t.getImage(currentSnail.getAssetPath());
         g.drawImage(image,
-                    (int) currentSnail.getPosition().getAbsis() - image.getWidth(this) / 2,
-                    (int) currentSnail.getPosition().getOrdinate() - image.getHeight(this) / 2, this);
+                    (int) (currentSnail.getPosition().getAbsis() - image.getWidth(this) / 2),
+                    (int) (currentSnail.getPosition().getOrdinate() - image.getHeight(this)), this);
         
         // //Draw Money
         // this.tank.draw_image("assets/img/coin_shine.png", 15, 50);

@@ -8,7 +8,7 @@ import com.arkavquarium.models.Snail;
 import com.arkavquarium.models.Data;
 
 public class SnailTest {
-    private double tolerance = 3;
+    private double tolerance = 10;
 
     @Before
     public void prepareMaxWidthHeight() {

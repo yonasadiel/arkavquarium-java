@@ -9,7 +9,7 @@ import com.arkavquarium.models.Position;
 import com.arkavquarium.models.Data;
 
 public class PositionTest {
-    private double tolerance = 3;
+    private double tolerance = 10;
 
     @Before
     public void prepareMaxWidthHeight() {

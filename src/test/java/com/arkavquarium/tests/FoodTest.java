@@ -6,7 +6,7 @@ import com.arkavquarium.models.Position;
 import com.arkavquarium.models.Food;
 
 public class FoodTest {
-    private double tolerance = 3;
+    private double tolerance = 10;
 
     @Test
     public void testAbsisContructor() {
