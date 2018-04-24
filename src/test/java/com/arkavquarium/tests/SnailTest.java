@@ -8,7 +8,6 @@ import com.arkavquarium.models.Snail;
 import com.arkavquarium.models.Data;
 
 public class SnailTest {
-    private double tolerance = 10;
 
     @Before
     public void prepareMaxWidthHeight() {
@@ -19,10 +18,10 @@ public class SnailTest {
     @Test
     public void testPositionConstructor() {
         Snail s = new Snail();
-        assertEquals("ordinate constructed equals to 9/10 max height", 9000, s.getPosition().getOrdinate(), this.tolerance);
+        assertEquals("ordinate constructed equals to 9/10 max height", 9000, s.getPosition().getOrdinate(), Position.getTolerance());
         Data.setMaxHeight(1000);
         s = new Snail();
-        assertEquals("ordinate constructed equals to 9/10 max height", 900, s.getPosition().getOrdinate(), this.tolerance);
+        assertEquals("ordinate constructed equals to 9/10 max height", 900, s.getPosition().getOrdinate(), Position.getTolerance());
     }
 
     @Test

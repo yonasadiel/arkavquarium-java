@@ -6,13 +6,12 @@ import com.arkavquarium.models.Position;
 import com.arkavquarium.models.Food;
 
 public class FoodTest {
-    private double tolerance = 10;
 
     @Test
     public void testAbsisContructor() {
         Food f = new Food(new Position(100, 200));
-        assertEquals("constructor Food first argument set absis", 100, f.getPosition().getAbsis(), this.tolerance);
-        assertEquals("constructor Food second argument set ordinate", 200, f.getPosition().getOrdinate(), this.tolerance);
+        assertEquals("constructor Food first argument set absis", 100, f.getPosition().getAbsis(), Position.getTolerance());
+        assertEquals("constructor Food second argument set ordinate", 200, f.getPosition().getOrdinate(), Position.getTolerance());
     }
 
     @Test
@@ -24,16 +23,16 @@ public class FoodTest {
     public void testMoveLessThanRange() {
         Food f = new Food(new Position(100, 200));
         f.move(225, 1.0);
-        assertEquals("move not change Food absis", 100, f.getPosition().getAbsis(), this.tolerance);
-        assertEquals("move change Food ordinate less than max velocity", 225, f.getPosition().getOrdinate(), this.tolerance);
+        assertEquals("move not change Food absis", 100, f.getPosition().getAbsis(), Position.getTolerance());
+        assertEquals("move change Food ordinate less than max velocity", 225, f.getPosition().getOrdinate(), Position.getTolerance());
     }
 
     @Test
     public void testMoveMoreThanRange() {
         Food f = new Food(new Position(100, 200));
         f.move(235, 1.0);
-        assertEquals("move not change Food absis", 100, f.getPosition().getAbsis(), this.tolerance);
-        assertEquals("move change Food ordinate more than max velocity", 230, f.getPosition().getOrdinate(), this.tolerance);
+        assertEquals("move not change Food absis", 100, f.getPosition().getAbsis(), Position.getTolerance());
+        assertEquals("move change Food ordinate more than max velocity", 230, f.getPosition().getOrdinate(), Position.getTolerance());
     }
 
     @Test

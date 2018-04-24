@@ -9,7 +9,6 @@ import com.arkavquarium.models.Position;
 import com.arkavquarium.models.Data;
 
 public class PositionTest {
-    private double tolerance = 10;
 
     @Before
     public void prepareMaxWidthHeight() {
@@ -20,13 +19,13 @@ public class PositionTest {
     @Test
     public void testAbsisContructor() {
         Position p = new Position(2.5, 3.5);
-        assertEquals("absis contructed equals to passed argument", 2.5, p.getAbsis(), this.tolerance);
+        assertEquals("absis contructed equals to passed argument", 2.5, p.getAbsis(), Position.getTolerance());
     }
 
     @Test
     public void testOrdinateContructor() {
         Position p = new Position(2.5, 3.5);
-        assertEquals("absis contructed equals to passed argument", 3.5, p.getOrdinate(), this.tolerance);
+        assertEquals("absis contructed equals to passed argument", 3.5, p.getOrdinate(), Position.getTolerance());
     }
 
     @Test
@@ -47,14 +46,14 @@ public class PositionTest {
     public void testAbsisSetter() {
         Position p = new Position();
         p.setAbsis(5.5);
-        assertEquals("absis set to passed argument", 5.5, p.getAbsis(), this.tolerance);
+        assertEquals("absis set to passed argument", 5.5, p.getAbsis(), Position.getTolerance());
     }
 
     @Test
     public void testOrdinateSetter() {
         Position p = new Position();
         p.setOrdinate(5.5);
-        assertEquals("ordinate set to passed argument", 5.5, p.getOrdinate(), this.tolerance);
+        assertEquals("ordinate set to passed argument", 5.5, p.getOrdinate(), Position.getTolerance());
     }
 
     @Test
@@ -62,8 +61,8 @@ public class PositionTest {
         Position source = new Position(100, 100);
         Position dest = new Position(40, 180);
         source.move(dest, 100);
-        assertEquals("absis moved to destination less than max velocity", 40.0, source.getAbsis(), this.tolerance);
-        assertEquals("ordinate moved to destination less than max velocity", 180.0, source.getOrdinate(), this.tolerance);
+        assertEquals("absis moved to destination less than max velocity", 40.0, source.getAbsis(), Position.getTolerance());
+        assertEquals("ordinate moved to destination less than max velocity", 180.0, source.getOrdinate(), Position.getTolerance());
     }
 
     @Test
@@ -71,8 +70,8 @@ public class PositionTest {
         Position source = new Position(100, 100);
         Position dest = new Position(160, 20);
         source.move(dest, 50);
-        assertEquals("absis moved to destination more than max velocity", 130.0, source.getAbsis(), this.tolerance);
-        assertEquals("ordinate moved to destination more than max velocity", 60.0, source.getOrdinate(), this.tolerance);
+        assertEquals("absis moved to destination more than max velocity", 130.0, source.getAbsis(), Position.getTolerance());
+        assertEquals("ordinate moved to destination more than max velocity", 60.0, source.getOrdinate(), Position.getTolerance());
     }
 
     @Test
@@ -80,8 +79,8 @@ public class PositionTest {
         Position source = new Position(100, 100);
         Position dest = new Position(40, 180);
         source.moveHorizontal(dest, 100);
-        assertEquals("absis moved horizontally to destination less than max velocity", 40.0, source.getAbsis(), this.tolerance);
-        assertEquals("ordinate moved horizontally to destination less than max velocity", 100.0, source.getOrdinate(), this.tolerance);
+        assertEquals("absis moved horizontally to destination less than max velocity", 40.0, source.getAbsis(), Position.getTolerance());
+        assertEquals("ordinate moved horizontally to destination less than max velocity", 100.0, source.getOrdinate(), Position.getTolerance());
     }
 
     @Test
@@ -89,8 +88,8 @@ public class PositionTest {
         Position source = new Position(100, 100);
         Position dest = new Position(40, 180);
         source.moveHorizontal(dest, 50);
-        assertEquals("absis moved horizontally to destination more than max velocity", 50.0, source.getAbsis(), this.tolerance);
-        assertEquals("ordinate moved horizontally to destination more than max velocity", 100.0, source.getOrdinate(), this.tolerance);
+        assertEquals("absis moved horizontally to destination more than max velocity", 50.0, source.getAbsis(), Position.getTolerance());
+        assertEquals("ordinate moved horizontally to destination more than max velocity", 100.0, source.getOrdinate(), Position.getTolerance());
     }
 
     @Test
@@ -98,8 +97,8 @@ public class PositionTest {
         Position source = new Position(100, 100);
         Position dest = new Position(40, 180);
         source.moveVertical(dest, 100);
-        assertEquals("absis moved vertically to destination less than max velocity", 100.0, source.getAbsis(), this.tolerance);
-        assertEquals("ordinate moved vertically to destination less than max velocity", 180.0, source.getOrdinate(), this.tolerance);
+        assertEquals("absis moved vertically to destination less than max velocity", 100.0, source.getAbsis(), Position.getTolerance());
+        assertEquals("ordinate moved vertically to destination less than max velocity", 180.0, source.getOrdinate(), Position.getTolerance());
     }
 
     @Test
@@ -107,8 +106,8 @@ public class PositionTest {
         Position source = new Position(100, 100);
         Position dest = new Position(40, 180);
         source.moveVertical(dest, 50);
-        assertEquals("absis moved vertically to destination more than max velocity", 100.0, source.getAbsis(), this.tolerance);
-        assertEquals("ordinate moved vertically to destination more than max velocity", 150.0, source.getOrdinate(), this.tolerance);
+        assertEquals("absis moved vertically to destination more than max velocity", 100.0, source.getAbsis(), Position.getTolerance());
+        assertEquals("ordinate moved vertically to destination more than max velocity", 150.0, source.getOrdinate(), Position.getTolerance());
     }
 
     @Test
@@ -122,7 +121,7 @@ public class PositionTest {
     @Test
     public void testToleranceEquals() {
         Position p1 = new Position(2.5, 3.5);
-        Position p2 = new Position(2.5 + this.tolerance / 2, 3.5 + this.tolerance / 2);
+        Position p2 = new Position(2.5 + Position.getTolerance() / 2, 3.5 + Position.getTolerance() / 2);
         assertTrue("p1 should be equals to in tolerance p2", p1.equals(p2));
         assertTrue("p2 should be equals to in tolerance p1", p2.equals(p1));
     }
@@ -130,7 +129,7 @@ public class PositionTest {
     @Test
     public void testIntolerantEquals() {
         Position p1 = new Position(2.5, 3.5);
-        Position p2 = new Position(2.5 + this.tolerance + 0.001, 3.5 + this.tolerance + 0.001);
+        Position p2 = new Position(2.5 + Position.getTolerance() + 0.001, 3.5 + Position.getTolerance() + 0.001);
         assertFalse("p1 should not be equals to out of tolerance p2", p1.equals(p2));
         assertFalse("p2 should not be equals to out of tolerance p1", p2.equals(p1));
     }
@@ -153,7 +152,7 @@ public class PositionTest {
     public void testRandom() {
         Position p1 = new Position();
         Position p2 = new Position();
-        assertTrue("new absis should be different with previous absis", Math.abs(p1.getAbsis() - p2.getAbsis()) > this.tolerance);
-        assertTrue("new ordinate should be different with previous ordinate", Math.abs(p1.getOrdinate() - p2.getOrdinate()) > this.tolerance);
+        assertTrue("new absis should be different with previous absis", Math.abs(p1.getAbsis() - p2.getAbsis()) > Position.getTolerance());
+        assertTrue("new ordinate should be different with previous ordinate", Math.abs(p1.getOrdinate() - p2.getOrdinate()) > Position.getTolerance());
     }
 }

@@ -1,7 +1,7 @@
 package com.arkavquarium.models;
 
 public class Guppy extends Fish {    
-    private final static int MAX_VELOCITY = 40;
+    private final static int MAX_VELOCITY = 50;
     /**
      * Period time for Guppy producing coin
      */

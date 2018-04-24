@@ -1,0 +1,123 @@
+package com.arkavquarium.views;
+
+import java.awt.*;
+import java.awt.event.MouseAdapter;
+import javax.swing.*;
+import com.arkavquarium.models.*;
+
+public class Tank extends JPanel  {
+    private static final String backgroundAssetPath = "src/main/resources/img/background.png";
+    private static final String eggAssetPath = "src/main/resources/img/egg.png";
+    private static final int margin = 20;
+    private static final int fontSize = 30;
+    private JFrame f;
+    private boolean isWin;
+    private boolean isLose;
+    
+    public Tank() {
+        f = new JFrame("Arkavquarium");
+        f.add(this);
+        f.setSize(Data.getMaxWidth(), Data.getMaxHeight());
+        f.setVisible(true);
+        f.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        isWin = false;
+        isLose = false;
+    }
+
+    public void addMouseListenerToFrame(MouseAdapter mouseAdapter) {
+        f.addMouseListener(mouseAdapter);
+    }
+
+    /**
+     * Draw all entity
+     */
+    public void paint(Graphics g) {
+        Toolkit t = Toolkit.getDefaultToolkit();
+        Image image;
+
+        g.setFont(new Font("TimesRoman", Font.PLAIN, Tank.fontSize));
+        image = t.getImage(Tank.backgroundAssetPath);
+        g.drawImage(image, getWidth()/2 - image.getWidth(this)/2, getHeight()/2 - image.getHeight(this)/2, this);
+
+        LinkedListIterator<Guppy> guppyIt = Data.getGuppies().getFirstIterator();
+        while (guppyIt != null) {
+            drawDrawable(g, guppyIt.getContent());
+            guppyIt = guppyIt.getNext();
+        }
+
+        LinkedListIterator<Piranha> piranhaIt = Data.getPiranhas().getFirstIterator();
+        while (piranhaIt != null) {
+            drawDrawable(g, piranhaIt.getContent());
+            piranhaIt = piranhaIt.getNext();
+        }
+
+        LinkedListIterator<Coin> coinIt = Data.getCoins().getFirstIterator();
+        while (coinIt != null) {
+            drawDrawable(g, coinIt.getContent());
+            coinIt = coinIt.getNext();
+        }
+
+        LinkedListIterator<Food> foodIt = Data.getFoods().getFirstIterator();
+        while (foodIt != null) {
+            drawDrawable(g, foodIt.getContent());
+            foodIt = foodIt.getNext();
+        }
+
+        drawDrawable(g, Data.getSnail());
+        
+        // //Draw Money
+        Image money = t.getImage(Coin.getCoinAssetPath());
+        g.drawImage(money, Tank.margin, Tank.margin, this);
+        g.setFont(new Font("TimesRoman", Font.PLAIN, money.getHeight(this)));
+        g.drawString(
+            new Integer(Data.getMoney()).toString(),
+            Tank.margin + money.getWidth(this),
+            Tank.margin + money.getHeight(this)
+        );
+        // //Draw Egg
+        Image egg = t.getImage(Tank.eggAssetPath);
+        g.drawImage(egg, Tank.margin, Tank.margin + money.getHeight(this),this);
+        g.setFont(new Font("TimesRoman", Font.PLAIN, egg.getHeight(this)));
+        g.drawString(
+            new Integer(Data.getEgg()).toString(),
+            Tank.margin + egg.getWidth(this),
+            Tank.margin + egg.getHeight(this) + money.getHeight(this)
+        );
+        
+        // this.tank.draw_text("Press G to buy Guppy (100 coins)        Press P to buy Piranha (1000 coins)          Press E to buy Egg (1000 coins)", 20, 15, 77, 0, 0, 0);
+        
+        if (this.isWin) {
+            g.drawString("CONGRATULATIONS!!!", this.getWidth()/2, Tank.margin + Tank.fontSize);
+        } else if (this.isLose) {
+            g.drawString("YOU LOSE!!!", this.getWidth()/2, Tank.margin + Tank.fontSize);
+        }
+    }
+
+    /**
+     * Draw a drawable
+     * @param drawable object to draw
+     */
+    public void drawDrawable(Graphics g, Drawable drawable){
+        Image image;
+        Toolkit t = Toolkit.getDefaultToolkit();
+        
+        image = t.getImage(drawable.getAssetPath());
+        g.drawImage(t.getImage(drawable.getAssetPath()),
+                (int) (drawable.getPosition().getAbsis() - image.getWidth(this) / 2),
+                (int) (drawable.getPosition().getOrdinate() - image.getHeight(this)), this);
+    }
+
+    /**
+     * Set state to win
+     */
+    public void setWin() {
+        this.isWin = true;
+    }
+
+    /**
+     * Set state to lose
+     */
+    public void setLose() {
+        this.isLose = true;
+    }
+}

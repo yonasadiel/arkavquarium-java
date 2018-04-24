@@ -49,4 +49,8 @@ public class Coin implements Drawable {
 		else
 			return Coin.assetPathRuby;
 	}
+
+	public static String getCoinAssetPath() {
+		return Coin.assetPathCoin;
+	}
 }

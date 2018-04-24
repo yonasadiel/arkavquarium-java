@@ -7,11 +7,11 @@ public class Position {
 	 * Absis
 	 */
 	private double x;
-	
 	/**
 	 * Ordinate
 	 */
 	private double y;
+	private static final double tolerance = 15;
 	
 	/**
 	 * Constructor initiate the position with random coordinate
@@ -58,6 +58,10 @@ public class Position {
 	 */
 	public void setOrdinate(double y) {
 		this.y = y;
+	}
+
+	public static double getTolerance() {
+		return Position.tolerance;
 	}
 
 	/**
@@ -119,10 +123,10 @@ public class Position {
 	/**
 	 * Compare postion
 	 * @param other comp the position to compare with
-	 * @return true if both positions have same coordinate with tolerance 10
+	 * @return true if both positions have same coordinate with tolerance 15
 	 */
 	public boolean equals(Position other) {
-		return this.magnitude(other) <= 10;
+		return this.magnitude(other) <= Position.tolerance;
 	}
 
 	/**

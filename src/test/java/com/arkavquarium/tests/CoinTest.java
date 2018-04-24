@@ -7,7 +7,6 @@ import com.arkavquarium.models.Data;
 import com.arkavquarium.models.Coin;
 
 public class CoinTest {
-    private double tolerance = 10;
 
     @Test
     public void testConstructorValue() {
@@ -20,8 +19,8 @@ public class CoinTest {
     public void testConstructorPosition() {
         Position p = new Position(10, 20);
         Coin c = new Coin(25, p);
-        assertEquals("constructor set position froms second parameter", 10, c.getPosition().getAbsis(), this.tolerance);
-        assertEquals("constructor set position froms second parameter", 20, c.getPosition().getOrdinate(), this.tolerance);
+        assertEquals("constructor set position froms second parameter", 10, c.getPosition().getAbsis(), Position.getTolerance());
+        assertEquals("constructor set position froms second parameter", 20, c.getPosition().getOrdinate(), Position.getTolerance());
     }
 
     @Test
@@ -29,8 +28,8 @@ public class CoinTest {
         Position p = new Position(10, 20);
         Coin c = new Coin(25, p);
         p.setAbsis(30); p.setOrdinate(30);
-        assertEquals("constructor set position froms second parameter by value not reference", 10, c.getPosition().getAbsis(), this.tolerance);
-        assertEquals("constructor set position froms second parameter by value not reference", 20, c.getPosition().getOrdinate(), this.tolerance);
+        assertEquals("constructor set position froms second parameter by value not reference", 10, c.getPosition().getAbsis(), Position.getTolerance());
+        assertEquals("constructor set position froms second parameter by value not reference", 20, c.getPosition().getOrdinate(), Position.getTolerance());
     }
 
     @Test
@@ -39,8 +38,8 @@ public class CoinTest {
         Coin c = new Coin(25, p);
         Data.setMaxHeight(500);
         c.move(1);
-        assertEquals("move not change Coin absis", 10, c.getPosition().getAbsis(), this.tolerance);
-        assertEquals("move change Coin ordinate less than max velocity", 60, c.getPosition().getOrdinate(), this.tolerance);
+        assertEquals("move not change Coin absis", 10, c.getPosition().getAbsis(), Position.getTolerance());
+        assertEquals("move change Coin ordinate less than max velocity", 60, c.getPosition().getOrdinate(), Position.getTolerance());
     }
 
     @Test
@@ -49,8 +48,8 @@ public class CoinTest {
         Coin c = new Coin(25, p);
         Data.setMaxHeight(50);
         c.move(1);
-        assertEquals("move not change Coin absis", 10, c.getPosition().getAbsis(), this.tolerance);
-        assertEquals("move change Coin ordinate less than max velocity", 45, c.getPosition().getOrdinate(), this.tolerance);
+        assertEquals("move not change Coin absis", 10, c.getPosition().getAbsis(), Position.getTolerance());
+        assertEquals("move change Coin ordinate less than max velocity", 45, c.getPosition().getOrdinate(), Position.getTolerance());
     }
 
     @Test
