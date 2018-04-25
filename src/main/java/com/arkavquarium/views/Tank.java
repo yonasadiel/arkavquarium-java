@@ -111,8 +111,7 @@ public class Tank extends JPanel  {
     try {
       g.setFont(this.fontFamily.deriveFont((float) money.getHeight(this)));
     } catch(Exception e) {
-      // sometimes NullPointerException, but I dont know
-      // why is it there.
+      // sometimes NullPointerException
     }
     g.drawString(
         new Integer(Data.getMoney()).toString(),
@@ -147,9 +146,11 @@ public class Tank extends JPanel  {
     );
 
     if (this.isWin) {
-      g.drawString("CONGRATULATIONS!!!", this.getWidth() / 2, Tank.margin + Tank.fontSize);
+      Image congrats = t.getImage("src/main/resources/img/congratulation.png");
+      g.drawImage(congrats, (this.getWidth() - congrats.getWidth(this)) / 2, Tank.margin * 2, this);
     } else if (this.isLose) {
-      g.drawString("YOU LOSE!!!", this.getWidth() / 2, Tank.margin + Tank.fontSize);
+      Image lose = t.getImage("src/main/resources/img/lose.png");
+      g.drawImage(lose, (this.getWidth() - lose.getWidth(this)) / 2, Tank.margin * 2, this);
     }
   }
 
