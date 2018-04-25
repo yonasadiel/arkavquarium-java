@@ -13,6 +13,7 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.MouseAdapter;
 import java.awt.event.KeyListener;
+import java.io.File;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.WindowConstants;
@@ -22,6 +23,7 @@ public class Tank extends JPanel  {
   private static final String eggAssetPath = "src/main/resources/img/egg.png";
   private static final int margin = 20;
   private static final int fontSize = 20;
+  private Font fontFamily;
   private JFrame frame;
   private boolean isWin;
   private boolean isLose;
@@ -33,6 +35,7 @@ public class Tank extends JPanel  {
    *  end exit on close.
    * Set isWin to false.
    * Set isLose to false.
+   * Set fontFamily to VCR OSD MONO
    */
   public Tank() {
     this.frame = new JFrame("Arkavquarium");
@@ -42,6 +45,14 @@ public class Tank extends JPanel  {
     this.frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     this.isWin = false;
     this.isLose = false;
+    try {
+      this.fontFamily =
+        Font
+          .createFont(Font.TRUETYPE_FONT, new File("src/main/resources/ttf/VCR_OSD_MONO_1.001.ttf"))
+          .deriveFont((float) Tank.fontSize);
+    } catch (Exception e) {
+      this.fontFamily = new Font("Monospaced", Font.PLAIN, Tank.fontSize);
+    }
   }
 
   public void addMouseListenerToFrame(MouseAdapter mouseAdapter) {
@@ -59,7 +70,7 @@ public class Tank extends JPanel  {
     Toolkit t = Toolkit.getDefaultToolkit();
     Image image;
 
-    g.setFont(new Font("TimesRoman", Font.PLAIN, Tank.fontSize));
+    g.setFont(this.fontFamily);
     image = t.getImage(Tank.backgroundAssetPath);
     g.drawImage(
         image,
@@ -97,7 +108,12 @@ public class Tank extends JPanel  {
     /* Draw Money */
     Image money = t.getImage(Coin.getCoinAssetPath());
     g.drawImage(money, Tank.margin, Tank.margin, this);
-    g.setFont(new Font("TimesRoman", Font.PLAIN, money.getHeight(this)));
+    try {
+      g.setFont(this.fontFamily.deriveFont((float) money.getHeight(this)));
+    } catch(Exception e) {
+      // sometimes NullPointerException, but I dont know
+      // why is it there.
+    }
     g.drawString(
         new Integer(Data.getMoney()).toString(),
         Tank.margin + money.getWidth(this),
@@ -106,14 +122,14 @@ public class Tank extends JPanel  {
     /* Draw Egg */
     Image egg = t.getImage(Tank.eggAssetPath);
     g.drawImage(egg, Tank.margin, Tank.margin + money.getHeight(this),this);
-    g.setFont(new Font("TimesRoman", Font.PLAIN, egg.getHeight(this)));
+    g.setFont(this.fontFamily.deriveFont((float) egg.getHeight(this)));
     g.drawString(
         new Integer(Data.getEgg()).toString(),
         Tank.margin + egg.getWidth(this),
         Tank.margin + egg.getHeight(this) + money.getHeight(this)
     );
 
-    g.setFont(new Font("TimesRoman", Font.PLAIN, Tank.fontSize));
+    g.setFont(this.fontFamily);
     g.drawString(
         "Press G to buy Guppy (100 coins)",
         Tank.margin,
@@ -146,10 +162,15 @@ public class Tank extends JPanel  {
     Image image;
     Toolkit t = Toolkit.getDefaultToolkit();
 
-    image = t.getImage(drawable.getAssetPath());
-    g.drawImage(t.getImage(drawable.getAssetPath()),
-        (int) (drawable.getPosition().getAbsis() - image.getWidth(this) / 2),
-        (int) (drawable.getPosition().getOrdinate() - image.getHeight(this)), this);
+    try {
+      image = t.getImage(drawable.getAssetPath());
+      g.drawImage(t.getImage(drawable.getAssetPath()),
+          (int) (drawable.getPosition().getAbsis() - image.getWidth(this) / 2),
+          (int) (drawable.getPosition().getOrdinate() - image.getHeight(this)), this);
+    } catch (Exception e) {
+      // the object that are going to be drawn may be destructed before drawn
+      // this exception is necessary to prevent stack trace shown.
+    }
   }
 
   /**
