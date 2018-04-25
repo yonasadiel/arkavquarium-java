@@ -10,6 +10,8 @@ import com.arkavquarium.models.Piranha;
 import com.arkavquarium.models.Position;
 import com.arkavquarium.models.Snail;
 import com.arkavquarium.views.Tank;
+import java.awt.event.KeyListener;
+import java.awt.event.KeyEvent;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -55,6 +57,28 @@ public class Aquarium {
         }
       }
     });
+
+	this.tank.addKeyListenerToPanel(new KeyListener() {
+		@Override
+        public void keyTyped(KeyEvent e) {}
+
+        @Override
+       	public void keyReleased(KeyEvent e) {}
+
+        @Override
+        public void keyPressed(KeyEvent e) {
+			switch (e.getKeyCode()) {
+				case KeyEvent.VK_G: buyGuppy();
+									break;
+				case KeyEvent.VK_P: buyPiranha();
+									break;
+				case KeyEvent.VK_E: buyEgg();
+									break;
+				case KeyEvent.VK_C: Data.setMoney(Data.getMoney() + 1000);
+									break;
+			}
+        }
+	});
 
     Guppy guppy1 = new Guppy();
     Data.getGuppies().add(guppy1);
