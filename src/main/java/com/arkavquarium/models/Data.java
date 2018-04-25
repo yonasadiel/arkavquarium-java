@@ -11,7 +11,7 @@ public class Data {
   private static int eggPrice = 1000;
   private static int maxHeight = 768;
   private static int maxWidth = 1366;
-
+  private static int cheat = 0;
   /**
    * Do nothing.
    */
@@ -154,5 +154,20 @@ public class Data {
    */
   public static void setMaxWidth(int maxWidth) {
     Data.maxWidth = maxWidth;
+  }
+
+  /**
+   * Set cheat value to val
+   * @param val new value for cheat
+   */
+  public static void setCheat(int val){
+    Data.cheat = val;
+  }
+
+  /**
+   * get cheat value
+   */
+  public static int getCheat(){
+    return Data.cheat;
   }
 }

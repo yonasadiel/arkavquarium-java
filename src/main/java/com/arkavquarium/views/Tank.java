@@ -11,8 +11,8 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Toolkit;
-import java.awt.event.MouseAdapter;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseAdapter;
 import java.io.File;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -110,7 +110,7 @@ public class Tank extends JPanel  {
     g.drawImage(money, Tank.margin, Tank.margin, this);
     try {
       g.setFont(this.fontFamily.deriveFont((float) money.getHeight(this)));
-    } catch(Exception e) {
+    } catch (Exception e) {
       // sometimes NullPointerException
     }
     g.drawString(

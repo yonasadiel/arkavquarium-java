@@ -10,10 +10,11 @@ import com.arkavquarium.models.Piranha;
 import com.arkavquarium.models.Position;
 import com.arkavquarium.models.Snail;
 import com.arkavquarium.views.Tank;
-import java.awt.event.KeyListener;
-import java.awt.event.KeyEvent;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.Timer;
@@ -22,11 +23,12 @@ public class Aquarium {
   private static final int WIN_CONDITION = 3;
   private Timer timer;
   private Tank tank;
-  
+  public static int cheat;
   /**
    * Construct with some guppies, one piranha and one snail 
    * with random position.
    */
+
   public Aquarium() {
     this.tank = new Tank();
     this.tank.addMouseListenerToFrame(new MouseAdapter() {               
@@ -58,27 +60,64 @@ public class Aquarium {
       }
     });
 
-	this.tank.addKeyListenerToPanel(new KeyListener() {
-		@Override
+    this.tank.addKeyListenerToPanel(new KeyListener() {
+        @Override
         public void keyTyped(KeyEvent e) {}
 
         @Override
-       	public void keyReleased(KeyEvent e) {}
+        public void keyReleased(KeyEvent e) {}
 
         @Override
         public void keyPressed(KeyEvent e) {
-			switch (e.getKeyCode()) {
-				case KeyEvent.VK_G: buyGuppy();
-									break;
-				case KeyEvent.VK_P: buyPiranha();
-									break;
-				case KeyEvent.VK_E: buyEgg();
-									break;
-				case KeyEvent.VK_C: Data.setMoney(Data.getMoney() + 1000);
-									break;
-			}
+          switch (e.getKeyCode()) {
+            case KeyEvent.VK_G: buyGuppy();
+                      break;
+            case KeyEvent.VK_P: buyPiranha();
+                      break;
+            case KeyEvent.VK_E: buyEgg();
+                      break;
+            case KeyEvent.VK_R:{
+              Data.setCheat(1);
+              break;
+            }
+            case KeyEvent.VK_I: {
+              if (Data.getCheat() == 1) {
+                Data.setCheat(2);
+              } else {
+                Data.setCheat(0);
+              }
+              break;
+            }
+            case KeyEvent.VK_C: {
+              if (Data.getCheat() == 2) {
+                Data.setCheat(3);
+              } else {
+                Data.setCheat(0);
+              }
+              break;
+            }
+            case KeyEvent.VK_K: {
+              if (Data.getCheat() == 3) {
+                Data.setCheat(4);
+              } else {
+                Data.setCheat(0);
+              }
+              break;
+            }
+            case KeyEvent.VK_Y: {
+              if (Data.getCheat() == 4) {
+                Data.setMoney(100000);
+              }
+              Data.setCheat(0);
+              break;
+            }
+            default: {
+              Data.setCheat(0); 
+              break;
+            }
         }
-	});
+      }
+      });
 
     Guppy guppy1 = new Guppy();
     Data.getGuppies().add(guppy1);
