@@ -20,7 +20,7 @@ public class Tank extends JPanel  {
   private static final String backgroundAssetPath = "src/main/resources/img/background.png";
   private static final String eggAssetPath = "src/main/resources/img/egg.png";
   private static final int margin = 20;
-  private static final int fontSize = 30;
+  private static final int fontSize = 20;
   private JFrame frame;
   private boolean isWin;
   private boolean isLose;
@@ -110,11 +110,19 @@ public class Tank extends JPanel  {
 
     g.setFont(new Font("TimesRoman", Font.PLAIN, Tank.fontSize));
     g.drawString(
-        "Press G to buy Guppy (100 coins)\n"
-         + "Press P to buy Piranha (1000 coins)\n"
-         + "Press E to buy Egg (1000 coins)\n",
+        "Press G to buy Guppy (100 coins)",
         Tank.margin,
         Tank.margin + egg.getHeight(this) + money.getHeight(this) + Tank.fontSize
+    );
+    g.drawString(
+        "Press P to buy Piranha (1000 coins)",
+        Tank.margin,
+        Tank.margin + egg.getHeight(this) + money.getHeight(this) + 2 * Tank.fontSize
+    );
+    g.drawString(
+        "Press E to buy Egg (1000 coins)\n",
+        Tank.margin,
+        Tank.margin + egg.getHeight(this) + money.getHeight(this) + 3 * Tank.fontSize
     );
 
     if (this.isWin) {
